@@ -7,20 +7,21 @@
 <meta http-equiv="Content-Security-Policy"
   content="default-src 'self'; script-src 'self' 'unsafe-inline' https://esm.sh; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://esm.sh; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self';" />
 <title>min-chat</title>
-<link rel="preconnect" href__="https://fonts.googleapis.com">
-<link rel="preconnect" href__="https://fonts.gstatic.com" crossorigin>
-<link href__="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800;900&family=Inter:wght@400;600;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800;900&family=Inter:wght@400;600;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
-  :root{  --bg:#0a0a0a;--bg2:#0f0f0f;--bg3:#141414;
+  :root{
+    --bg:#0a0a0a;--bg2:#0f0f0f;--bg3:#141414;
     --line:#242424;--line2:#1a1a1a;
     --fg:#f5f5f5;--muted:#8a8a8a;--subtle:#5e5e5e;
-    --gold:#3b82f6;--gold2:#2563eb;--red:#e53935;--ok:#22c55e;--warn:#f59e0b;
+    --gold:#3b82f6;--gold2:#1d4ed8;--red:#e53935;--ok:#22c55e;--warn:#f59e0b;
     --input:#101010;
   }
   *{box-sizing:border-box}
   html,body{margin:0;height:100%;background:var(--bg);color:var(--fg);font-family:"Noto Sans JP",Inter,"Helvetica Neue",Arial,sans-serif;font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;overscroll-behavior:none}
   body{background:
-    radial-gradient(1200px 600px at 90% -10%, rgba(212,175,55,.07), transparent 60%),
+    radial-gradient(1200px 600px at 90% -10%, rgba(59,130,246,.07), transparent 60%),
     radial-gradient(900px 500px at -10% 110%, rgba(255,255,255,.04), transparent 60%),
     var(--bg)}
   button{font-family:inherit}
@@ -36,7 +37,7 @@
   /* topbar */
   #topbar{height:64px;display:flex;align-items:center;gap:14px;padding:0 24px;border-bottom:1px solid var(--line);background:rgba(10,10,10,.85);backdrop-filter:blur(14px);position:sticky;top:0;z-index:10}
   .brand{display:flex;align-items:center;gap:12px}
-  .brand .logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#1a1a1a,#000);border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;color:var(--gold);font-weight:900;font-size:18px;box-shadow:0 0 18px rgba(212,175,55,.18), inset 0 0 12px rgba(212,175,55,.05);font-family:Inter,sans-serif}
+  .brand .logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#1a1a1a,#000);border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;color:var(--gold);font-weight:900;font-size:18px;box-shadow:0 0 18px rgba(59,130,246,.18), inset 0 0 12px rgba(59,130,246,.05);font-family:Inter,sans-serif}
   .brand .ti{font-size:18px;font-weight:900;letter-spacing:3px;font-family:Inter,sans-serif}
   .brand .sub{font-size:10px;color:var(--muted);font-weight:600;letter-spacing:3px;text-transform:uppercase;margin-top:2px}
   .sp{flex:1}
@@ -56,23 +57,30 @@
   #mechip button:hover{color:var(--red)}
 
   /* main */
-  #content{flex:1;display:flex;min-height:0;max-width:1500px;width:100%;margin:0 auto}
-  #chatpane{flex:1;display:flex;flex-direction:column;min-width:0}
+  #content{flex:1;display:grid;grid-template-columns:minmax(0,1fr) 360px 280px;min-height:0;max-width:1700px;width:100%;margin:0 auto}
+  #chatpane{display:flex;flex-direction:column;min-width:0;min-height:0}
   #chat{flex:1;overflow-y:auto;padding:24px 0 4px;scroll-behavior:smooth}
 
   /* member list */
-  #userpane{width:280px;overflow:auto;padding:24px 14px;border-left:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.012),transparent 30%)}
+  #userpane{overflow:auto;padding:24px 14px;border-left:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.012),transparent 30%)}
   .upane-h{font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;padding:6px 12px 14px;letter-spacing:2.5px;display:flex;justify-content:space-between;align-items:center}
   .upane-h .cnt{color:var(--gold);font-family:"JetBrains Mono",monospace;letter-spacing:0;font-size:11px}
   .u{padding:8px 10px;border-radius:10px;display:flex;align-items:center;gap:10px;cursor:default;transition:background .15s}
   .u:hover{background:#141414}
   .u .av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#1f1f1f,#0a0a0a);display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:13px;flex:none;position:relative;border:1px solid var(--line)}
   .u .av::after{content:"";position:absolute;right:-1px;bottom:-1px;width:10px;height:10px;border-radius:50%;background:var(--ok);border:2px solid var(--bg)}
-  .u .nm{font-weight:600;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;flex:1;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+  .u .nm{font-weight:600;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+  .u .ucol{min-width:0;flex:1;display:flex;flex-direction:column;gap:2px}
+  .u .ust{font-size:11px;color:var(--muted);font-style:italic;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .msg .ust-inline{color:var(--subtle);font-size:11px;font-style:italic;margin-left:2px}
+  #topicbar{display:none;align-items:center;gap:10px;padding:10px 24px;border-bottom:1px solid var(--line);background:linear-gradient(90deg,rgba(59,130,246,.08),transparent);font-size:13px;color:#cfdcff}
+  #topicbar.on{display:flex}
+  #topicbar .label{font-size:10px;font-weight:900;letter-spacing:3px;color:var(--gold);text-transform:uppercase;font-family:Inter,sans-serif}
+  #topicbar .txt{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
   /* badges (Japanese) */
   .badge{font-size:10px;padding:2px 7px;border-radius:4px;font-weight:800;letter-spacing:1.5px;display:inline-flex;align-items:center;line-height:1.5;border:1px solid transparent;font-family:"Noto Sans JP",sans-serif}
-  .b-founder{background:linear-gradient(135deg,#3a2d05,#1a1304);color:var(--gold);border-color:var(--gold);box-shadow:0 0 12px rgba(212,175,55,.3)}
+  .b-founder{background:linear-gradient(135deg,#0b1d3a,#04122a);color:var(--gold);border-color:var(--gold);box-shadow:0 0 12px rgba(59,130,246,.3)}
   .b-admin{background:#1c1c1c;color:#f5f5f5;border-color:#7a7a7a}
   .b-deleter{background:#1c1c1c;color:#9ca3af;border-color:#374151}
   .tag{color:var(--subtle);font-size:11px;font-weight:500;font-family:"JetBrains Mono",Consolas,monospace}
@@ -92,14 +100,14 @@
   .msg .text{color:#d4d4d4;white-space:pre-wrap;word-wrap:break-word;font-size:15px}
   .msg:hover{background:rgba(255,255,255,.02)}
   .msg.system .text{color:var(--muted);font-style:italic}
-  .msg.private{background:linear-gradient(90deg,rgba(212,175,55,.09),transparent 80%);border-left:2px solid var(--gold);padding-left:76px}
+  .msg.private{background:linear-gradient(90deg,rgba(59,130,246,.09),transparent 80%);border-left:2px solid var(--gold);padding-left:76px}
   .msg.private .text{color:#fde68a}
   .msg.dice .text,.msg.omikuji .text{color:#c4b5fd}
 
   /* input */
   #inputbox{padding:8px 24px 22px;position:relative}
   #ibwrap{background:var(--input);border:1px solid var(--line);border-radius:14px;padding:2px 14px;display:flex;align-items:center;gap:10px;transition:border-color .15s, box-shadow .15s}
-  #ibwrap:focus-within{border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,175,55,.08)}
+  #ibwrap:focus-within{border-color:var(--gold);box-shadow:0 0 0 3px rgba(59,130,246,.08)}
   #inp{flex:1;background:transparent;border:0;outline:0;color:var(--fg);font-size:15px;padding:14px 0;font-family:inherit;min-width:0}
   #inp::placeholder{color:var(--subtle)}
   #send{background:transparent;border:0;color:var(--muted);cursor:pointer;padding:8px;border-radius:8px;display:flex;align-items:center;font-size:18px;transition:color .15s}
@@ -127,11 +135,60 @@
   #pal .it:hover,#pal .it.sel{background:#141414}
   #pal .it .cmd{color:#fff;font-weight:700;font-family:"JetBrains Mono",Consolas,monospace}
   #pal .it .arg{color:var(--gold);font-family:"JetBrains Mono",Consolas,monospace;font-size:12px;margin-left:8px}
-  #pal .it .desc{color:var(--subtle);font-size:11px;margin-left:auto}
+  #pal .it .desc{color:var(--subtle);font-size:11px;margin-left:auto;text-align:right;padding-left:10px}
+  #pal .hint{padding:12px 16px;border-bottom:1px solid var(--line2);color:#cfcfcf;font-size:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  #pal .hint code{color:var(--gold);background:#020202}
+  #pal .swatches{padding:12px 16px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;border-bottom:1px solid var(--line2)}
+  #pal .sw{height:34px;border:1px solid var(--line);border-radius:8px;cursor:pointer;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+
+  /* games */
+  #gamepane{overflow:auto;padding:18px 14px;border-left:1px solid var(--line);background:linear-gradient(180deg,rgba(59,130,246,.035),transparent 38%)}
+  .gp-head{font-size:10px;font-weight:900;color:var(--gold);letter-spacing:2.5px;text-transform:uppercase;padding:6px 8px 14px;display:flex;align-items:center;justify-content:space-between}
+  .gp-head #gstatus{color:var(--muted);font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:1px}
+  .room{border:1px solid var(--line);background:linear-gradient(180deg,#0c0c0c,#060606);border-radius:14px;margin-bottom:14px;overflow:hidden;transition:all .2s;position:relative}
+  .room:hover{border-color:#2c2c2c}
+  .room.on{border-color:rgba(59,130,246,.6);box-shadow:0 0 0 1px rgba(59,130,246,.15) inset, 0 8px 30px rgba(59,130,246,.12)}
+  .room.on::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+  .room-h{padding:14px 14px 10px;display:flex;align-items:center;gap:10px}
+  .room-num{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,#1a1a1a,#000);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-weight:900;font-family:Inter,sans-serif;color:var(--gold);font-size:13px}
+  .room.on .room-num{border-color:var(--gold);box-shadow:0 0 12px rgba(59,130,246,.3)}
+  .room-title{font-weight:800;font-size:13px;letter-spacing:.5px;display:flex;flex-direction:column;gap:2px;line-height:1.2}
+  .room-title .gname{color:#fff}
+  .room-title .gsub{color:var(--subtle);font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;font-family:Inter,sans-serif}
+  .room-meta{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:3px}
+  .room-meta .badge-cnt{font-size:10px;color:#d4d4d4;background:#000;border:1px solid var(--line);border-radius:999px;padding:3px 9px;font-family:"JetBrains Mono",monospace;letter-spacing:.5px}
+  .room-meta .badge-cnt b{color:var(--gold);font-weight:700}
+  .room-meta .stat{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:800;font-family:Inter,sans-serif}
+  .room-meta .stat.live{color:var(--ok)}
+  .room-meta .stat.lobby{color:var(--warn)}
+  .room-body{padding:0 14px 14px;display:grid;gap:10px}
+  .gamepick{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+  .mini-btn{background:#0d0d0d;border:1px solid var(--line);color:#dcdcdc;border-radius:8px;padding:8px 10px;font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;font-family:inherit}
+  .mini-btn:hover{border-color:var(--gold);color:#fff;background:#141414;transform:translateY(-1px)}
+  .mini-btn.primary{background:linear-gradient(180deg,#fff,#d4d4d4);color:#000;border-color:#fff}
+  .mini-btn.primary:hover{background:linear-gradient(180deg,var(--gold),var(--gold2));color:#000;border-color:var(--gold)}
+  .mini-btn.ghost{background:transparent}
+  .mini-btn.danger:hover{border-color:var(--red);color:var(--red)}
+  .mini-btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+  .players{display:flex;flex-wrap:wrap;gap:5px;min-height:24px}
+  .pill{font-size:11px;border:1px solid var(--line);border-radius:999px;padding:3px 9px;color:#ddd;background:#050505;display:inline-flex;align-items:center;gap:5px}
+  .pill::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--ok)}
+  .pill.me{border-color:var(--gold);background:rgba(59,130,246,.08)}
+  .pill.sp{color:var(--muted);opacity:.7}.pill.sp::before{background:var(--muted)}
+  .pill.empty{color:var(--subtle);font-style:italic}.pill.empty::before{display:none}
+  .game-actions{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  .game-actions.three{grid-template-columns:1fr 1fr 1fr}
+  .game-state{font-size:12px;color:#cfcfcf;border-top:1px solid var(--line2);padding-top:10px;margin-top:4px}
+  .hand{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}
+  .card{min-width:30px;text-align:center;border:1px solid var(--line);background:#111;border-radius:6px;padding:4px 6px;font-family:"JetBrains Mono",monospace;font-size:12px}
+  .board{display:grid;grid-template-columns:repeat(8,1fr);gap:2px;margin-top:8px;background:#061b12;border:1px solid #123522;padding:4px;border-radius:8px}
+  .cell{aspect-ratio:1;background:#0b5a38;border:1px solid rgba(255,255,255,.08);border-radius:4px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+  .disc{width:70%;height:70%;border-radius:50%}.disc.B{background:#050505;border:1px solid #333}.disc.W{background:#f5f5f5;border:1px solid #ddd}
+  #roomchat{margin-top:14px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#060606}#roomchat .rh{padding:10px 12px;border-bottom:1px solid var(--line);font-size:11px;color:var(--gold);font-weight:900;letter-spacing:2px;text-transform:uppercase}#roommsgs{max-height:180px;overflow:auto;padding:8px 10px;font-size:12px}.rmsg{padding:4px 0;color:#d6d6d6}.rmsg .rn{font-weight:800}.rinput{display:flex;border-top:1px solid var(--line)}#rinp{flex:1;background:#050505;border:0;color:#fff;padding:10px;outline:0}#rsend{background:#111;border:0;border-left:1px solid var(--line);color:var(--gold);padding:0 12px;cursor:pointer}
 
   /* auth */
   #auth{position:fixed;inset:0;background:
-    radial-gradient(1000px 600px at 50% -10%, rgba(212,175,55,.14), transparent 60%),
+    radial-gradient(1000px 600px at 50% -10%, rgba(59,130,246,.14), transparent 60%),
     radial-gradient(800px 500px at 50% 110%, rgba(255,255,255,.04), transparent 60%),
     #000;
     display:flex;align-items:center;justify-content:center;z-index:100;padding:16px}
@@ -148,7 +205,7 @@
   #auth input{width:100%;padding:13px 14px;background:#000;border:1px solid var(--line);color:var(--fg);border-radius:8px;font-size:15px;margin-top:8px;font-family:inherit;outline:none;transition:border-color .15s}
   #auth input:focus{border-color:var(--gold)}
   #auth button.go{width:100%;margin-top:26px;padding:14px;background:linear-gradient(180deg,#fff,#d4d4d4);color:#000;border:0;border-radius:10px;font-weight:900;cursor:pointer;font-size:13px;transition:all .2s;letter-spacing:2px;text-transform:uppercase}
-  #auth button.go:hover{background:linear-gradient(180deg,var(--gold),var(--gold2));color:#000;box-shadow:0 8px 24px rgba(212,175,55,.3)}
+  #auth button.go:hover{background:linear-gradient(180deg,var(--gold),var(--gold2));color:#000;box-shadow:0 8px 24px rgba(59,130,246,.3)}
   #auth button.go:disabled{opacity:.5;cursor:wait}
   #auth .err{color:var(--red);margin-top:14px;font-size:13px;min-height:18px;font-weight:600;text-align:center}
   #auth .help{color:var(--subtle);font-size:11px;margin-top:22px;line-height:1.8;padding-top:16px;border-top:1px solid var(--line)}
@@ -158,7 +215,10 @@
   #lock h1{color:var(--red);font-size:48px;margin:0 0 12px;letter-spacing:6px;font-family:Inter,sans-serif;font-weight:900}
   #lock p{color:#666;letter-spacing:1px}
 
+  @media(max-width:1120px){#content{grid-template-columns:minmax(0,1fr) 320px}#userpane{display:none}}
   @media(max-width:760px){
+    #content{display:flex;flex-direction:column}
+    #gamepane{max-height:42dvh;border-left:0;border-top:1px solid var(--line)}
     #userpane{display:none}
     .msg{padding-left:62px;padding-right:14px}
     .msg.first .av{left:14px;width:34px;height:34px;font-size:13px}
@@ -169,6 +229,117 @@
     .brand .sub{display:none}
     #mechip .info{display:none}
   }
+
+  /* help modal */
+  #helpModal{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);z-index:150;display:none;align-items:center;justify-content:center;padding:16px}
+  #helpModal.on{display:flex}
+  .hm-card{background:linear-gradient(180deg,#0f0f0f,#050505);border:1px solid var(--line);border-radius:16px;width:100%;max-width:640px;max-height:80vh;display:flex;flex-direction:column;box-shadow:0 30px 80px rgba(0,0,0,.9)}
+  .hm-h{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid var(--line);font-weight:900;letter-spacing:3px;text-transform:uppercase;font-size:13px;color:var(--gold)}
+  .hm-body{overflow:auto;padding:8px 0}
+  .hm-row{display:grid;grid-template-columns:160px 1fr;gap:12px;align-items:center;padding:10px 22px;border-bottom:1px solid var(--line2);font-size:13px;cursor:pointer;transition:background .15s}
+  .hm-row:hover{background:#141414}
+  .hm-row .hm-cmd{font-family:"JetBrains Mono",monospace;color:var(--gold);font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .hm-row .hm-desc{color:#cfcfcf}
+  .hm-row .hm-arg{color:var(--subtle);font-size:11px;font-family:"JetBrains Mono",monospace;display:block;margin-top:2px}
+
+  /* ============ view tabs (main / game) ============ */
+  #viewtabs{display:flex;gap:6px;padding:10px 24px 0;border-bottom:1px solid var(--line2)}
+  #viewtabs button{background:transparent;color:var(--muted);border:1px solid transparent;border-bottom:0;padding:8px 16px;border-radius:10px 10px 0 0;font-size:12px;font-weight:800;letter-spacing:1.5px;cursor:pointer;text-transform:uppercase;font-family:inherit;display:inline-flex;align-items:center;gap:8px}
+  #viewtabs button.on{background:#0e0e0e;border-color:var(--line);color:#fff}
+  #viewtabs button:hover{color:#fff}
+  #viewtabs .nb{background:var(--red);color:#fff;font-size:9px;padding:1px 7px;border-radius:999px;letter-spacing:0;font-weight:900}
+  #viewtabs .gst{font-size:9px;color:var(--gold);letter-spacing:0;padding:1px 6px;background:rgba(59,130,246,.12);border-radius:4px;font-weight:700}
+
+  /* game view (full board area) */
+  #gameview{display:none;flex:1;flex-direction:row;min-height:0}
+  #gameview.on{display:flex}
+  #chatpane.hidden-main #chat,#chatpane.hidden-main #typers,#chatpane.hidden-main #typing,#chatpane.hidden-main #topicbar,#chatpane.hidden-main #inputbox{display:none}
+  #chatpane.hidden-main #gameview{display:flex}
+  #gv-board{flex:1;min-width:0;overflow:auto;padding:20px 24px;background:radial-gradient(800px 400px at 50% 0%, rgba(59,130,246,.06), transparent 60%)}
+  #gv-board h2{margin:0 0 6px;font-size:13px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;font-weight:900;font-family:Inter,sans-serif}
+  #gv-board .gv-sub{color:var(--muted);font-size:12px;margin-bottom:18px}
+  #gv-board .gv-empty{color:var(--subtle);text-align:center;padding:80px 20px;font-style:italic}
+  #gv-board .board-big{display:grid;grid-template-columns:repeat(8,1fr);gap:3px;background:#061b12;border:1px solid #1f5b3d;padding:6px;border-radius:14px;max-width:560px;margin:0 auto;box-shadow:0 30px 70px rgba(0,0,0,.6)}
+  #gv-board .board-big .cell{aspect-ratio:1;background:#0d6a44;border:1px solid rgba(255,255,255,.08);border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .15s}
+  #gv-board .board-big .cell:hover{background:#0f7a4d}
+  #gv-board .hand-big{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:24px}
+  #gv-board .hand-big .card{min-width:54px;height:74px;font-size:18px;padding:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#fff,#e2e2e2);color:#000;border-radius:8px;border:1px solid #bbb;box-shadow:0 4px 16px rgba(0,0,0,.5)}
+  #gv-board .ww-roles{display:flex;flex-direction:column;align-items:center;gap:16px;padding:24px}
+  #gv-board .ww-role{padding:18px 32px;border:2px solid var(--gold);border-radius:14px;font-size:22px;font-weight:900;letter-spacing:4px;background:rgba(59,130,246,.07)}
+  #gv-board .gv-actions{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:22px}
+  #gv-rchat{width:320px;border-left:1px solid var(--line);display:flex;flex-direction:column;background:#070707}
+  #gv-rchat .rh{padding:14px 18px;border-bottom:1px solid var(--line);font-size:11px;letter-spacing:2.5px;color:var(--gold);font-weight:900;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center}
+  #gv-rmsgs{flex:1;overflow:auto;padding:12px 14px;font-size:13px}
+  #gv-rmsgs .rmsg{padding:5px 0}
+  #gv-rmsgs .rmsg .rn{font-weight:700}
+  #gv-rinwrap{display:flex;border-top:1px solid var(--line)}
+  #gv-rinp{flex:1;background:#050505;border:0;outline:0;color:#fff;padding:12px 14px;font-family:inherit}
+  #gv-rsend{background:#101010;border:0;border-left:1px solid var(--line);color:var(--gold);padding:0 16px;cursor:pointer;font-size:16px}
+
+  /* message actions hover menu */
+  .msg .mact{position:absolute;top:-12px;right:18px;display:none;gap:2px;background:#0a0a0a;border:1px solid var(--line);border-radius:8px;padding:3px;box-shadow:0 6px 20px rgba(0,0,0,.6);z-index:3}
+  .msg:hover .mact{display:flex}
+  .msg .mact button{background:transparent;border:0;color:var(--muted);cursor:pointer;padding:4px 8px;border-radius:5px;font-size:12px;font-family:inherit}
+  .msg .mact button:hover{background:#141414;color:#fff}
+  .msg .mact button.danger:hover{color:var(--red)}
+  .msg.editing .text{display:none}
+  .msg .editbox{display:none;margin-top:4px;gap:6px;align-items:center}
+  .msg.editing .editbox{display:flex}
+  .msg .editbox input{flex:1;background:#000;border:1px solid var(--gold);color:#fff;padding:8px 10px;border-radius:8px;outline:0;font-family:inherit;font-size:14px}
+  .msg .editbox button{background:#141414;border:1px solid var(--line);color:#fff;padding:6px 12px;border-radius:8px;cursor:pointer;font-size:12px;font-family:inherit}
+  .msg .edited{color:var(--subtle);font-size:10px;margin-left:6px;font-style:italic}
+
+  /* reply / quote — parent .msg already pads-left, so margin-left:0 */
+  .replyQ{margin:0 0 4px 0;padding:6px 12px 6px 10px;border-left:3px solid var(--ok);background:rgba(34,197,94,.08);border-radius:0 8px 8px 0;font-size:12px;color:#a7f3d0;max-width:520px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer;display:inline-block}
+  .replyQ:hover{background:rgba(34,197,94,.14)}
+  .replyQ .rqn{font-weight:800;margin-right:6px;color:#86efac}
+  .msg.is-reply-to-me{background:rgba(34,197,94,.05)!important;border-left:3px solid var(--ok)}
+  #reply-bar{display:none;align-items:center;gap:10px;padding:8px 14px;margin:0 24px 6px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.3);border-radius:8px;font-size:12px;color:#a7f3d0}
+  #reply-bar.on{display:flex}
+  #reply-bar .x{margin-left:auto;background:transparent;border:0;color:#a7f3d0;cursor:pointer;font-size:14px}
+  #reply-bar .rqn{font-weight:800;color:#86efac}
+
+  /* own messages right-aligned bubble */
+  .msg.own{padding:6px 24px 6px 24px;text-align:right}
+  .msg.own.first{margin-top:14px}
+  .msg.own .av{display:none}
+  .msg.own .meta{justify-content:flex-end}
+  .msg.own .text{display:inline-block;background:linear-gradient(180deg,#1e3a8a,#1e293b);padding:9px 14px;border-radius:16px 16px 4px 16px;text-align:left;max-width:72%;color:#eaf2ff;border:1px solid rgba(59,130,246,.35);white-space:pre-wrap;word-wrap:break-word}
+  .msg.own .mact{left:auto;right:24px}
+  .msg.own .ts-inline{display:none}
+  .msg.own .replyQ{text-align:left}
+  .msg.own.private .text{color:#fde68a;background:linear-gradient(180deg,#3a2e0a,#1f1505);border-color:rgba(245,158,11,.4)}
+
+  /* new message floating badge */
+  #newbadge{position:absolute;left:50%;transform:translateX(-50%);bottom:96px;background:linear-gradient(180deg,var(--gold),var(--gold2));color:#fff;border:0;padding:9px 18px;border-radius:999px;font-weight:800;font-size:12px;cursor:pointer;display:none;z-index:6;box-shadow:0 10px 28px rgba(59,130,246,.5);letter-spacing:1px}
+  #newbadge.on{display:inline-block}
+
+  /* game room chat (sidebar) — hidden by default, shown only when room is playing */
+  #roomchat{display:none}
+  #gv-rchat{display:none}
+  #gameview.playing #gv-rchat{display:flex}
+
+  /* list panel (for /list, /ng-list, /log results) */
+  #listpanel{display:none;position:fixed;inset:0;z-index:160;background:rgba(0,0,0,.78);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:16px}
+  #listpanel.on{display:flex}
+  #listpanel .lp-card{background:linear-gradient(180deg,#0f0f0f,#050505);border:1px solid var(--line);border-radius:16px;width:100%;max-width:780px;max-height:84vh;display:flex;flex-direction:column;box-shadow:0 30px 80px rgba(0,0,0,.9)}
+  #listpanel .lp-h{display:flex;align-items:center;justify-content:space-between;padding:16px 22px;border-bottom:1px solid var(--line);font-size:13px;font-weight:900;color:var(--gold);text-transform:uppercase;letter-spacing:2.5px}
+  #listpanel .lp-h .x{background:transparent;border:1px solid var(--line);color:#fff;border-radius:8px;padding:6px 10px;cursor:pointer;font-family:inherit}
+  #listpanel .lp-body{padding:14px 22px;overflow:auto;color:#dcdcdc;font-size:13px}
+  #listpanel .lp-sect{margin-bottom:18px}
+  #listpanel .lp-sect h3{margin:0 0 8px;color:#fff;font-size:12px;letter-spacing:2px;text-transform:uppercase;font-weight:800;border-bottom:1px solid var(--line2);padding-bottom:6px}
+  #listpanel table{width:100%;border-collapse:collapse;font-size:12px}
+  #listpanel table th{text-align:left;color:var(--muted);font-weight:700;padding:6px 8px;border-bottom:1px solid var(--line2);font-size:10px;letter-spacing:1px;text-transform:uppercase}
+  #listpanel table td{padding:6px 8px;border-bottom:1px solid var(--line2)}
+  #listpanel table tr:hover td{background:#0d0d0d}
+  #listpanel .lp-empty{color:var(--subtle);font-style:italic;padding:6px 0}
+  #listpanel .pill-ok{color:var(--ok);font-weight:700}
+  #listpanel .pill-ng{color:var(--red);font-weight:700}
+  #listpanel code{color:var(--gold)}
+
+  /* big visible logout in topbar */
+  .logout-btn{background:#1a0a0a;border:1px solid #4a1717;color:#fca5a5;cursor:pointer;padding:8px 14px;border-radius:10px;font-size:12px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;font-family:inherit;display:inline-flex;align-items:center;gap:6px;transition:all .15s}
+  .logout-btn:hover{background:var(--red);color:#fff;border-color:var(--red)}
 </style>
 </head>
 <body>
@@ -213,15 +384,32 @@
     <div class="sp"></div>
     <div class="rt"><span class="dot" id="rtdot"></span><span id="rttext">接続中…</span></div>
     <div id="mechip"></div>
+    <button class="iconbtn" id="togHelp" title="コマンド一覧">?</button>
     <button class="iconbtn" id="togUsers" title="メンバー表示切替">👥</button>
+    <button class="logout-btn" id="logoutBig" title="ログアウト">⏻ ログアウト</button>
   </header>
 
   <div id="content">
     <div id="chatpane">
+      <div id="viewtabs">
+        <button id="tab-main" class="on">💬 メイン</button>
+        <button id="tab-game">🎮 ゲーム <span id="gtab-state" class="gst" style="display:none"></span></button>
+      </div>
+      <div id="topicbar"><span class="label">話題</span><span class="txt" id="topictxt"></span></div>
       <div id="chat"></div>
       <div id="typers"></div>
       <div id="typing"></div>
+      <div id="reply-bar"><span>↩ 返信中: <span class="rqn" id="reply-name"></span><span id="reply-text"></span></span><button class="x" id="reply-cancel">✕</button></div>
+      <div id="gameview">
+        <div id="gv-board"><div class="gv-empty">部屋に入ってゲームを始めましょう →</div></div>
+        <div id="gv-rchat">
+          <div class="rh"><span id="gv-rtitle">ROOM CHAT</span><span id="gv-rinfo"></span></div>
+          <div id="gv-rmsgs"></div>
+          <div id="gv-rinwrap"><input id="gv-rinp" placeholder="部屋チャット" maxlength="200"/><button id="gv-rsend">➤</button></div>
+        </div>
+      </div>
       <div id="inputbox">
+        <button id="newbadge">↓ 新着メッセージ</button>
         <div id="pal"></div>
         <div id="ibwrap">
           <input id="inp" autocomplete="off" placeholder="メッセージを送る   ( / でコマンド一覧 )" maxlength="300"/>
@@ -229,10 +417,35 @@
         </div>
       </div>
     </div>
+    <aside id="gamepane">
+      <div class="gp-head"><span>GAME ROOMS</span><span id="gstatus">同期中</span></div>
+      <div id="rooms"></div>
+      <div id="roomchat">
+        <div class="rh">ROOM CHAT</div>
+        <div id="roommsgs"></div>
+        <div class="rinput"><input id="rinp" placeholder="部屋チャット" maxlength="200"/><button id="rsend">➤</button></div>
+      </div>
+    </aside>
     <aside id="userpane">
       <div class="upane-h"><span>オンライン</span><span class="cnt" id="cnt">0</span></div>
       <div id="userlist"></div>
     </aside>
+  </div>
+</div>
+
+<!-- HELP MODAL -->
+<div id="helpModal">
+  <div class="hm-card">
+    <div class="hm-h"><span>コマンド一覧</span><button id="hm-close" class="iconbtn">✕</button></div>
+    <div class="hm-body" id="hm-list"></div>
+  </div>
+</div>
+
+<!-- LIST PANEL (NG / status / log) -->
+<div id="listpanel">
+  <div class="lp-card">
+    <div class="lp-h"><span id="lp-title">情報</span><button class="x" id="lp-close">閉じる</button></div>
+    <div class="lp-body" id="lp-body"></div>
   </div>
 </div>
 
@@ -252,34 +465,49 @@ const HEX_RE  = /^#[0-9a-fA-F]{6}$/;
 
 const nameToEmail = n => "u_" + btoa(unescape(encodeURIComponent(n))).replace(/[^a-zA-Z0-9]/g,"").toLowerCase().slice(0,40) + "@chat.local";
 
-let me=null, myIgnores=new Set(), chCh=null, prCh=null, presCh=null;
+let me=null, myIgnores=new Set(), chCh=null, prCh=null, presCh=null, sysCh=null, gameCh=null, gameMsgCh=null;
+let reconnectTimer=null, reconnectDelay=1000;
 let lastSenderId=null, lastSenderTime=0;
-let reconnectTimer=null; // 【追加】再接続タイマー管理
+let booted=false, sending=false, currentRoom=1, gameSnapshot=null, healthBusy=false;
+const COLOR_PRESETS = ["#ffffff","#60a5fa","#22c55e","#f43f5e","#f59e0b","#a78bfa","#14b8a6","#f472b6","#94a3b8","#ef4444","#3b82f6","#10b981"];
+// r = 必要権限 ランク (1:user 2:deleter 3:admin 4:founder)
 const COMMANDS = [
-  {c:"help",a:"",d:"コマンド一覧"},
-  {c:"omi",a:"",d:"おみくじ(1日1回)"},
-  {c:"color",a:"#RRGGBB | rainbow",d:"名前の色を変更"},
-  {c:"dice",a:"個数 上限",d:"サイコロ (例: /dice 2 6)"},
-  {c:"ignore",a:"名前",d:"指定ユーザーを自分には非表示"},
-  {c:"unignore",a:"名前",d:"非表示を解除 (管理者+)"},
-  {c:"prm",a:"名前 メッセージ",d:"プライベートメッセージ"},
-  {c:"nick",a:"",d:"自分のタグ/役職を隠す (管理者+)"},
-  {c:"clear",a:"",d:"チャット全消去 (deleter+)"},
-  {c:"delete",a:"名前",d:"対象の発言を全削除 (deleter+)"},
-  {c:"mute",a:"名前 ?d?h?m",d:"対象をミュート (deleter+)"},
-  {c:"ipmute",a:"名前 ?d?h?m",d:"IPベースでミュート (管理者+)"},
-  {c:"unmute",a:"名前",d:"ミュート解除 (管理者+)"},
-  {c:"ban",a:"名前",d:"対象をBAN (管理者+)"},
-  {c:"unban",a:"名前",d:"BAN解除 (管理者+)"},
-  {c:"ipignore",a:"名前",d:"対象を全体に非表示 (管理者+)"},
-  {c:"addd",a:"名前",d:"deleter付与 (管理者+)"},
-  {c:"adda",a:"名前",d:"管理者付与 (創設者)"},
-  {c:"remove",a:"名前",d:"権限剥奪"},
-  {c:"dp",a:"名前",d:"IP暴露+BAN (創設者)"},
-  {c:"sys-check",a:"",d:"システム確認 (創設者)"},
-  {c:"sys-clone",a:"",d:"スナップショット (創設者)"},
-  {c:"sys-roll",a:"",d:"ロールバック (創設者)"},
+  {c:"help",a:"",d:"コマンド一覧",h:"/help",r:1},
+  {c:"topic",a:"現在の話題",d:"現在の話題を設定（空でクリア）",h:"/topic 今日の作業",r:1},
+  {c:"status",a:"一言",d:"名前の横の一言を設定（空でクリア）",h:"/status 作業中",r:1},
+  {c:"omi",a:"",d:"おみくじ(1日1回)",h:"/omi",r:1},
+  {c:"color",a:"色を選択",d:"名前の色を変更",h:"下の色をクリック or /color #3b82f6",r:1},
+  {c:"dice",a:"個数 上限",d:"サイコロ",h:"/dice 2 6  → 6面を2個",r:1},
+  {c:"ignore",a:"名前",d:"指定ユーザーを自分には非表示",h:"/ignore 名前",r:1},
+  {c:"prm",a:"名前 メッセージ",d:"プライベートメッセージ (10分で消滅)",h:"/prm 名前 こんにちは",r:1},
+  {c:"clear",a:"",d:"チャット全消去 (deleter+)",r:2},
+  {c:"delete",a:"名前",d:"対象の発言を全削除 (deleter+)",r:2},
+  {c:"mute",a:"名前 ?d?h?m",d:"対象をミュート (deleter+)",r:2},
+  {c:"ban-room",a:"名前",d:"対象を今のゲーム部屋から1h BAN (deleter+)",r:2},
+  {c:"remove",a:"名前",d:"権限剥奪 (deleter以上)",r:2},
+  {c:"nick",a:"",d:"自分のタグ/役職を隠す (管理者+)",r:3},
+  {c:"ng",a:"NGにしたい語",d:"そのワードを言うと自動で1分IPミュート (管理者+)",h:"/ng spam",r:3},
+  {c:"ok",a:"解除する語",d:"NGワードを解除 (管理者+)",h:"/ok spam",r:3},
+  {c:"ipmute",a:"名前 ?d?h?m",d:"IPベースでミュート (管理者+)",r:3},
+  {c:"unmute",a:"名前",d:"ミュート解除 (管理者+)",r:3},
+  {c:"ban",a:"名前",d:"対象をBAN (管理者+)",r:3},
+  {c:"unban",a:"名前",d:"BAN解除 (管理者+)",r:3},
+  {c:"ipignore",a:"名前",d:"対象を全体に非表示 (管理者+)",r:3},
+  {c:"unignore",a:"名前",d:"全体非表示を解除 (管理者+)",r:3},
+  {c:"addd",a:"名前",d:"deleter付与 (管理者+)",r:3},
+  {c:"adda",a:"名前",d:"管理者付与 (創設者)",r:4},
+  {c:"dp",a:"名前",d:"IP暴露+BAN (創設者)",r:4},
+  {c:"nemui-sou",a:"名前",d:"創設者を付与 (隠し)",r:4},
+  {c:"ng-list",a:"",d:"NGワード一覧",h:"/ng-list",r:1},
+  {c:"list",a:"",d:"現在のミュート/BAN一覧 (deleter+)",h:"/list",r:2},
+  {c:"log",a:"",d:"直近3日のコマンド履歴 (deleter+)",h:"/log",r:2},
+  {c:"admin",a:"",d:"権限を持つメンバー一覧",h:"/admin",r:1},
 ];
+const roleRank = r => r==="founder"?4:r==="admin"?3:r==="deleter"?2:1;
+const myRank = () => me ? roleRank(me.role) : 1;
+const allowedCmds = () => COMMANDS.filter(x => x.r <= myRank());
+// コマンドの第1引数が「対象ユーザー名」のもの
+const NAME_TARGET_CMDS = new Set(["ignore","unignore","prm","delete","mute","ipmute","unmute","ban","unban","ipignore","addd","adda","remove","dp","ban-room"]);
 
 // ===== AUTH =====
 let mode = "login";
@@ -327,6 +555,12 @@ async function boot(){
   if(error){ $("#a-err").textContent = error.message; return; }
   if(!data.ok){
     if(data.error==="banned"){ $("#lock").classList.add("on"); await sb.auth.signOut().catch(()=>{}); return; }
+    if(data.error==="account_limit"){
+      $("#lock").classList.add("on");
+      $("#lock p").textContent="同じIPで作成できる通常アカウントは3つまでです。";
+      await sb.auth.signOut().catch(()=>{});
+      return;
+    }
     $("#a-err").textContent = data.error;
     return;
   }
@@ -336,11 +570,22 @@ async function boot(){
   renderMe();
   await loadIgnores();
   await loadMessages();
-  // ※ loadUsers() はPresenceのsyncで自動実行されるため不要
+  await loadUsers();
+  await loadTopic();
+  await loadGame();
   subscribe();
-  $("#chat").addEventListener("scroll", scheduleReadSync, { passive:true });
-  window.addEventListener("focus", scheduleReadSync);
-  window.addEventListener("pagehide", stopTyping);
+  if(!booted){
+    booted = true;
+    setInterval(pruneExpiredPrivate, 30000);
+    $("#chat").addEventListener("scroll", ()=>{
+      const c=$("#chat");
+      if(c.scrollHeight - c.scrollTop - c.clientHeight < 60) hideNewBadge();
+      scheduleReadSync();
+    }, { passive:true });
+    window.addEventListener("focus", ()=>{ scheduleReadSync(); clearUnread(); });
+    window.addEventListener("pagehide", stopTyping);
+    $("#newbadge").onclick = ()=>{ $("#chat").scrollTop = $("#chat").scrollHeight; hideNewBadge(); clearUnread(); };
+  }
   $("#inp").focus();
 }
 
@@ -367,9 +612,21 @@ function renderMe(){
     <div class="info">
       <div class="nm">${nameHtml(me.name, me.name_color)} ${badge}</div>
       <div class="sub">${tag} オンライン</div>
-    </div>
-    <button id="logout" title="ログアウト">⏻</button>`;
-  $("#logout").onclick = async () => { await sb.auth.signOut(); location.reload(); };
+    </div>`;
+}
+async function doLogout(){
+  try{ await sb.auth.signOut(); }catch{}
+  // Reset all in-memory state without page reload
+  if(chCh) sb.removeChannel(chCh); if(prCh) sb.removeChannel(prCh);
+  if(presCh) sb.removeChannel(presCh); if(sysCh) sb.removeChannel(sysCh);
+  if(gameCh) sb.removeChannel(gameCh); if(gameMsgCh) sb.removeChannel(gameMsgCh);
+  if(tyCh) sb.removeChannel(tyCh); if(rdCh) sb.removeChannel(rdCh);
+  chCh=prCh=presCh=sysCh=gameCh=gameMsgCh=tyCh=rdCh=null;
+  me=null; booted=false; latestMsgId=0; unreadCount=0; updateTabTitle();
+  $("#app").classList.remove("on");
+  $("#chat").innerHTML=""; $("#mechip").innerHTML="";
+  $("#auth").style.display="";
+  setMode("login");
 }
 
 async function loadIgnores(){
@@ -386,44 +643,106 @@ async function loadMessages(){
   scrollBot(true);
 }
 
-// 【変更】Presenceベースのオンラインユーザー描画
-function renderOnlineUsers(state){
-  const ul = $("#userlist");
-  ul.innerHTML = "";
-  const list = [];
-
-  for(const presences of Object.values(state)){
-    if(presences.length > 0) list.push(presences[0]);
-  }
-
+let profilesMap = new Map(); // user_id -> profile
+let presenceSet = new Set(); // user_id of currently-online
+async function loadUsers(){
+  const { data } = await sb.from("profiles").select("user_id,name,tag,role,name_color,nick_hidden,status").order("name");
+  profilesMap = new Map((data||[]).map(p=>[p.user_id,p]));
+  renderUsers();
+}
+function renderUsers(){
+  const ul = $("#userlist"); ul.innerHTML="";
+  const list = [...presenceSet].map(id=>profilesMap.get(id)).filter(Boolean);
   const rank = r => r==="founder"?4:r==="admin"?3:r==="deleter"?2:1;
   list.sort((a,b)=>rank(b.role)-rank(a.role) || a.name.localeCompare(b.name,"ja"));
-
   list.forEach(u=>{
     const hideTag = u.nick_hidden || u.role==="founder";
     const tag = hideTag ? "" : `<span class="tag">#${String(u.tag).padStart(5,"0")}</span>`;
     const badge = u.nick_hidden ? "" : roleBadge(u.role);
+    const st = u.status ? `<div class="ust">${esc(u.status)}</div>` : "";
     const d = document.createElement("div");
     d.className = "u";
     d.innerHTML = `<div class="av">${esc((u.name||"?").slice(0,1))}</div>
-      <div class="nm">${nameHtml(u.name,u.name_color)} ${tag} ${badge}</div>`;
+      <div class="ucol"><div class="nm">${nameHtml(u.name,u.name_color)} ${tag} ${badge}</div>${st}</div>`;
     ul.appendChild(d);
   });
-
   $("#cnt").textContent = String(list.length).padStart(2,"0");
+}
+
+async function loadTopic(){
+  const { data } = await sb.from("system_state").select("value").eq("key","topic").maybeSingle();
+  applyTopicValue(data?.value);
+}
+function applyTopicValue(v){
+  let txt="";
+  if(v==null) txt="";
+  else if(typeof v === "string") txt = v;
+  else if(typeof v === "object"){
+    txt = v.text || "";
+    const exp = v.expires_at ? new Date(v.expires_at).getTime() : 0;
+    if(exp && exp < Date.now()) txt = ""; // disaster topic expired
+  }
+  setTopic(txt);
+}
+function setTopic(txt){
+  const bar = $("#topicbar");
+  if(txt && txt.length){ $("#topictxt").textContent = txt; bar.classList.add("on"); }
+  else { $("#topictxt").textContent=""; bar.classList.remove("on"); }
+}
+// Re-check topic expiry every minute (disaster topic auto-clears after 1h)
+setInterval(loadTopic, 60*1000);
+
+function pruneExpiredPrivate(){
+  const cutoff = Date.now() - 10*60*1000;
+  document.querySelectorAll('#chat .msg.private').forEach(el=>{
+    // best-effort: snapshot a timestamp on insert
+    const t = Number(el.dataset.ts||0);
+    if(t && t < cutoff) el.remove();
+  });
 }
 
 function fmtTime(d){ return new Date(d).toLocaleTimeString("ja-JP",{hour:"2-digit",minute:"2-digit"}); }
 function fmtDay(d){ const x=new Date(d); return `${x.getMonth()+1}/${x.getDate()} ${fmtTime(d)}`; }
 
+
 let latestMsgId = 0;
+let unreadCount = 0;
+let unreadReplies = 0;
+let replyToMsg = null; // {id, name, text}
+let msgIndex = new Map(); // id -> message row
+
+function updateTabTitle(){
+  if(unreadReplies>0 || unreadCount>0){
+    document.title = `[返信${unreadReplies}]${unreadCount} min-chat`;
+  } else {
+    document.title = "min-chat";
+  }
+}
+function clearUnread(){ unreadCount=0; unreadReplies=0; updateTabTitle(); }
+document.addEventListener("visibilitychange", ()=>{
+  if(!document.hidden){ clearUnread(); scheduleReadSync(); hideNewBadge(); }
+});
+window.addEventListener("focus", clearUnread);
+
+function renderReplyQuote(m){
+  if(!m.reply_to_id) return "";
+  const ref = msgIndex.get(m.reply_to_id);
+  const name = ref ? (ref.name_snapshot||"?") : "メッセージ";
+  const txt = ref ? stripCtl(ref.content||"").slice(0,60) : "(元メッセージなし)";
+  return `<div class="replyQ" data-jump="${m.reply_to_id}"><span class="rqn">${esc(name)}</span>${esc(txt)}</div>`;
+}
+
 function addMsg(m){
   if(m.hidden_global) return;
   if(myIgnores.has(m.user_id)) return;
   if(m.kind==="private" && m.user_id!==me.user_id && m.target_user_id!==me.user_id) return;
 
   const t = new Date(m.created_at).getTime();
-  const grouped = (m.user_id===lastSenderId) && (t-lastSenderTime < 5*60*1000) && m.kind!=="private";
+  if(m.kind==="private" && Date.now()-t > 10*60*1000) return;
+
+  msgIndex.set(m.id, m);
+
+  const grouped = (m.user_id===lastSenderId) && (t-lastSenderTime < 5*60*1000) && m.kind!=="private" && !m.reply_to_id;
   lastSenderId = m.user_id; lastSenderTime = t;
 
   const hideTag = m.nick_hidden_snapshot || m.role_snapshot==="founder" || !m.tag_snapshot;
@@ -431,100 +750,228 @@ function addMsg(m){
   const badge = m.nick_hidden_snapshot ? "" : roleBadge(m.role_snapshot);
   const prefix = m.kind==="private" ? (m.target_user_id===me.user_id?`📨 from `:`📨 to `) : "";
   const initial = esc((m.name_snapshot||"?").slice(0,1));
+  const editedTag = m.edited_at ? `<span class="edited">(編集済)</span>` : "";
+
+  // Highlight messages that reply TO me (light green)
+  const repliedToMe = m.reply_to_id && (msgIndex.get(m.reply_to_id)?.user_id === me.user_id) && m.user_id !== me.user_id;
+
+  const isOwn = m.user_id === me.user_id;
+  const canDelete = isOwn || myRank() >= 2;
+  const canEdit = isOwn && (m.kind==="chat" || m.kind==="private");
+  let actsHtml = "";
+  if(m.kind === "chat" || m.kind === "private"){
+    const acts = [];
+    acts.push(`<button data-act="reply">↩ 返信</button>`);
+    acts.push(`<button data-act="quote">❝ 引用</button>`);
+    if(canEdit) acts.push(`<button data-act="edit">✎ 編集</button>`);
+    if(canDelete) acts.push(`<button data-act="delete" class="danger">🗑 削除</button>`);
+    actsHtml = `<div class="mact">${acts.join("")}</div>`;
+  }
 
   const el = document.createElement("div");
-  el.className = "msg " + (m.kind||"chat") + (grouped?"":" first");
+  // own messages are always rendered as "first" (no left-avatar grouping) so the right-bubble look stays consistent
+  const isFirst = !grouped || isOwn;
+  el.className = "msg " + (m.kind||"chat") + (isFirst?" first":"") + (repliedToMe?" is-reply-to-me":"") + (isOwn?" own":"");
   el.dataset.id = m.id;
   el.dataset.uid = m.user_id || "";
   el.dataset.kind = m.kind || "chat";
-  if(grouped){
-    el.innerHTML = `<span class="ts-inline">${fmtTime(m.created_at)}</span><div class="text">${esc(stripCtl(m.content))}</div>`;
+  el.dataset.ts = String(t);
+  if(!isFirst){
+    el.innerHTML = `<span class="ts-inline">${fmtTime(m.created_at)}</span>${actsHtml}<div class="text">${esc(stripCtl(m.content))}</div><div class="editbox"><input maxlength="300"/><button data-act="save">保存</button><button data-act="cancel">取消</button></div>`;
   } else {
+    const p = profilesMap.get(m.user_id);
+    const stat = (p && p.status) ? `<span class="ust-inline">— ${esc(p.status)}</span>` : "";
+    const q = renderReplyQuote(m);
     el.innerHTML = `
       <div class="av">${initial}</div>
-      <div class="meta">${prefix}<span class="name">${nameHtml(m.name_snapshot,m.color_snapshot)}</span>${tag} ${badge} <span class="time">${fmtDay(m.created_at)}</span></div>
-      <div class="text">${esc(stripCtl(m.content))}</div>`;
+      ${actsHtml}
+      ${q}
+      <div class="meta">${prefix}<span class="name">${nameHtml(m.name_snapshot,m.color_snapshot)}</span>${tag} ${badge} ${stat} <span class="time">${fmtDay(m.created_at)}</span>${editedTag}</div>
+      <div class="text">${esc(stripCtl(m.content))}</div>
+      <div class="editbox"><input maxlength="300"/><button data-act="save">保存</button><button data-act="cancel">取消</button></div>`;
   }
+  // Wire actions
+  el.querySelectorAll("[data-act]").forEach(btn=>{
+    btn.onclick = (ev)=>{ ev.stopPropagation(); handleMsgAction(btn.dataset.act, m, el); };
+  });
+  el.querySelectorAll("[data-jump]").forEach(j=>{
+    j.onclick = ()=>{ const tgt=document.querySelector(`.msg[data-id="${j.dataset.jump}"]`); if(tgt){ tgt.scrollIntoView({behavior:"smooth",block:"center"}); tgt.style.outline="2px solid var(--gold)"; setTimeout(()=>tgt.style.outline="",1600);} };
+  });
   $("#chat").appendChild(el);
   if(m.id > latestMsgId) latestMsgId = m.id;
+  // Unread counters (only when not focused or scrolled away)
+  const c=$("#chat");
+  const atBottom = c.scrollHeight - c.scrollTop - c.clientHeight < 80;
+  if(!isOwn && (document.hidden || !atBottom)){
+    unreadCount++;
+    if(repliedToMe) unreadReplies++;
+    updateTabTitle();
+    if(!atBottom) showNewBadge();
+  }
   scheduleReadSync();
   updateReadBadges();
 }
 
+function replaceMsg(m){
+  msgIndex.set(m.id, m);
+  const old = document.querySelector(`.msg[data-id="${m.id}"]`);
+  if(!old) return;
+  // Re-render in place: easier to remove + addMsg, but addMsg appends to end. Patch text + edited tag only.
+  const txt = old.querySelector(":scope > .text");
+  if(txt) txt.textContent = stripCtl(m.content||"");
+  if(m.edited_at && !old.querySelector(".edited")){
+    const meta = old.querySelector(".meta"); if(meta) meta.insertAdjacentHTML("beforeend", `<span class="edited">(編集済)</span>`);
+  }
+}
+
+function handleMsgAction(act, m, el){
+  if(act==="reply"){
+    replyToMsg = { id:m.id, name:m.name_snapshot, text:stripCtl(m.content).slice(0,80) };
+    $("#reply-name").textContent = m.name_snapshot;
+    $("#reply-text").textContent = " " + replyToMsg.text;
+    $("#reply-bar").classList.add("on");
+    $("#inp").focus();
+  } else if(act==="quote"){
+    const snippet = stripCtl(m.content).replace(/\s+/g," ").slice(0,140);
+    const prefix = `「${m.name_snapshot}: ${snippet}」 `;
+    const cur = $("#inp").value;
+    $("#inp").value = prefix + cur;
+    $("#inp").focus();
+    try{ $("#inp").setSelectionRange(prefix.length, prefix.length); }catch{}
+  } else if(act==="_quote_old_"){
+    $("#inp").focus();
+  } else if(act==="edit"){
+    el.classList.add("editing");
+    const inp = el.querySelector(".editbox input");
+    inp.value = stripCtl(m.content);
+    inp.focus();
+  } else if(act==="cancel"){
+    el.classList.remove("editing");
+  } else if(act==="save"){
+    const inp = el.querySelector(".editbox input");
+    const v = stripCtl(inp.value).trim(); if(!v) return;
+    sb.rpc("edit_own_message",{ p_id: m.id, p_content: v }).then(({data,error})=>{
+      if(error||!data?.ok){ flash(error?.message || data?.error || "編集失敗"); return; }
+      el.classList.remove("editing");
+    });
+  } else if(act==="delete"){
+    if(!confirm("このメッセージを削除しますか？")) return;
+    sb.rpc("delete_message",{ p_id: m.id }).then(({data,error})=>{
+      if(error||!data?.ok){ flash(error?.message || data?.error || "削除失敗"); return; }
+    });
+  }
+}
+
 function scrollBot(force){
   const c=$("#chat");
-  const near = c.scrollHeight - c.scrollTop - c.clientHeight < 200;
-  if(force || near){ c.scrollTop = c.scrollHeight; scheduleReadSync(); }
+  // tighter threshold so we don't auto-yank the user back to the bottom
+  const near = c.scrollHeight - c.scrollTop - c.clientHeight < 60;
+  if(force || near){ c.scrollTop = c.scrollHeight; scheduleReadSync(); hideNewBadge(); }
 }
+
+function showNewBadge(){ const b=$("#newbadge"); if(b) b.classList.add("on"); }
+function hideNewBadge(){ const b=$("#newbadge"); if(b) b.classList.remove("on"); }
+// chat-scroll listener: hide new badge once user scrolls to bottom
+// (added once in boot via the existing scroll handler hookup)
 
 function setRt(ok, label){
   $("#rtdot").classList.toggle("ng", !ok);
   $("#rttext").textContent = label || (ok?"LIVE":"OFFLINE");
 }
 
-// 【変更】subscribe：再接続ロジック＋Presence統合
-function subscribe(){
-  // 既存チャンネルをすべてクリーンアップ
-  if(chCh){ sb.removeChannel(chCh); chCh=null; }
-  if(prCh){ sb.removeChannel(prCh); prCh=null; }
-  if(presCh){ sb.removeChannel(presCh); presCh=null; }
-  if(reconnectTimer){ clearTimeout(reconnectTimer); reconnectTimer=null; }
+function scheduleReconnect(reason){
+  setRt(false, "接続復旧中… ("+reason+")");
+  if(reconnectTimer) return;
+  reconnectTimer = setTimeout(async ()=>{
+    reconnectTimer=null;
+    try{
+      await loadMessages();
+      await loadUsers();
+      await loadGame();
+      subscribe();
+      reconnectDelay = 1000;
+    }catch(e){
+      reconnectDelay = Math.min(reconnectDelay*2, 15000);
+      scheduleReconnect("retry");
+    }
+  }, reconnectDelay);
+}
 
-  // メッセージ購読
+function subscribe(){
+  if(chCh) sb.removeChannel(chCh);
   chCh = sb.channel("messages-rt")
     .on("postgres_changes",{event:"INSERT",schema:"public",table:"messages"}, p=>{ addMsg(p.new); scrollBot(); })
+    .on("postgres_changes",{event:"UPDATE",schema:"public",table:"messages"}, p=>{ replaceMsg(p.new); })
     .on("postgres_changes",{event:"DELETE",schema:"public",table:"messages"}, p=>{
       const el=document.querySelector(`.msg[data-id="${p.old.id}"]`); if(el) el.remove();
+      msgIndex.delete(p.old.id);
     })
-    .subscribe((status)=>{
-      if(status==="SUBSCRIBED"){
-        setRt(true,"LIVE");
-      } else if(status==="CHANNEL_ERROR" || status==="TIMED_OUT" || status==="CLOSED"){
-        setRt(false,"再接続中…");
-        // 5秒後に全チャンネル再接続
-        if(!reconnectTimer){
-          reconnectTimer = setTimeout(()=>{ reconnectTimer=null; subscribe(); }, 5000);
-        }
-      }
+    .subscribe(s=>{
+      if(s==="SUBSCRIBED") setRt(true, "LIVE");
+      else if(s==="CHANNEL_ERROR"||s==="TIMED_OUT"||s==="CLOSED") scheduleReconnect(s);
+      else setRt(false, "接続中…");
     });
-
-  // プロフィール変更購読
+  if(prCh) sb.removeChannel(prCh);
   prCh = sb.channel("profiles-rt")
     .on("postgres_changes",{event:"*",schema:"public",table:"profiles"}, async ()=>{
+      await loadUsers();
       const { data } = await sb.rpc("login_check");
       if(data?.ok){ me = data.profile; renderMe(); }
     }).subscribe();
 
-  // 【追加】Presenceでオンラインユーザー管理
-  presCh = sb.channel("presence-rt", {
-    config: { presence: { key: me.user_id } }
+  // Presence: actual realtime users
+  if(presCh) sb.removeChannel(presCh);
+  presCh = sb.channel("presence-rt", { config:{ presence:{ key: me.user_id }}});
+  presCh.on("presence",{event:"sync"}, ()=>{
+    const state = presCh.presenceState();
+    presenceSet = new Set(Object.keys(state));
+    renderUsers();
   });
-  presCh.on("presence", { event:"sync" }, ()=>{
-    renderOnlineUsers(presCh.presenceState());
-  });
-  presCh.subscribe(async (status)=>{
-    if(status==="SUBSCRIBED"){
-      await presCh.track({
-        user_id:   me.user_id,
-        name:      me.name,
-        tag:       me.tag,
-        role:      me.role,
-        name_color:me.name_color,
-        nick_hidden:me.nick_hidden
-      });
+  presCh.subscribe(async s=>{
+    if(s==="SUBSCRIBED"){
+      await presCh.track({ id: me.user_id, at: Date.now() });
+    } else if(s==="CHANNEL_ERROR"||s==="TIMED_OUT"||s==="CLOSED"){
+      scheduleReconnect("presence "+s);
     }
   });
+
+  // system_state realtime → topic / rollback state
+  if(sysCh) sb.removeChannel(sysCh);
+  sysCh = sb.channel("sys-rt")
+    .on("postgres_changes",{event:"*",schema:"public",table:"system_state"}, p=>{
+      if(p.new?.key==="topic"){ applyTopicValue(p.new.value); }
+    }).subscribe();
+
+  if(gameCh) sb.removeChannel(gameCh);
+  gameCh = sb.channel("games-rt")
+    .on("postgres_changes",{event:"*",schema:"public",table:"game_rooms"}, loadGame)
+    .on("postgres_changes",{event:"*",schema:"public",table:"game_room_members"}, loadGame)
+    .subscribe();
+  if(gameMsgCh) sb.removeChannel(gameMsgCh);
+  gameMsgCh = sb.channel("game-msgs-rt")
+    .on("postgres_changes",{event:"INSERT",schema:"public",table:"game_room_messages"}, p=>{
+      if(p.new.room_id===currentRoom) addRoomMsg(p.new);
+    }).subscribe();
 
   setupTyping();
   setupReads();
 }
 
-// ===== TYPING INDICATOR =====
+// Browser-level connectivity
+window.addEventListener("online", ()=>scheduleReconnect("online"));
+window.addEventListener("offline", ()=>setRt(false,"オフライン"));
+
+// ===== TYPING INDICATOR (optimized) =====
+// - throttle broadcasts (>=2s gap)
+// - auto-stop after 2s idle
+// - stop on blur / page hidden / send
+// - only fire when text actually changed
 let tyCh=null, lastTypingSent=0, lastTypingText="", typingIdleTimer=null, typingActive=false;
-const typers = new Map();
+const typers = new Map(); // user_id -> {name,color,exp}
 function renderTypers(){
   const now=Date.now();
-  for(const [k,v] of typers) if(v.exp<now){ typers.delete(k); }
+  let changed=false;
+  for(const [k,v] of typers) if(v.exp<now){ typers.delete(k); changed=true; }
   const list=[...typers.values()];
   const el=$("#typers");
   if(!list.length){ el.classList.remove("on"); el.innerHTML=""; return; }
@@ -570,9 +1017,9 @@ function stopTyping(){
   tyCh.send({ type:"broadcast", event:"st", payload:{ id:me.user_id }});
 }
 
-// ===== READ RECEIPTS =====
+// ===== READ RECEIPTS (既読) — broadcast based, no DB =====
 let rdCh=null, myLastRead=0, lastReadSent=0, readSyncTimer=null;
-const reads = new Map();
+const reads = new Map(); // user_id -> last_read_msg_id
 function setupReads(){
   if(rdCh) sb.removeChannel(rdCh);
   rdCh = sb.channel("reads-rt", { config:{ broadcast:{ self:false }}});
@@ -582,7 +1029,7 @@ function setupReads(){
     const prev = reads.get(payload.id)||0;
     if(payload.n > prev){ reads.set(payload.id, payload.n); updateReadBadges(); }
   });
-  rdCh.on("broadcast",{event:"hi"}, ()=>{
+  rdCh.on("broadcast",{event:"hi"}, ()=>{ // newcomer: rebroadcast current
     if(myLastRead) sendRead(true);
   });
   rdCh.subscribe(s=>{
@@ -615,7 +1062,9 @@ function sendRead(force){
 }
 function updateReadBadges(){
   if(!me) return;
+  // remove existing badges
   document.querySelectorAll("#chat .reads").forEach(el=>el.remove());
+  // find last own non-private msg
   const own = [...document.querySelectorAll(`#chat .msg[data-uid="${me.user_id}"]`)]
     .filter(el=>el.dataset.kind!=="private");
   if(!own.length) return;
@@ -636,6 +1085,8 @@ document.addEventListener("visibilitychange", ()=>{
 
 // 3-min health check
 setInterval(async ()=>{
+  if(healthBusy || !me) return;
+  healthBusy = true;
   const t0=Date.now(); const ch=sb.channel("ping-"+t0); let got=false;
   ch.on("broadcast",{event:"p"},()=>{ got=true; });
   await ch.subscribe(async s=>{
@@ -643,28 +1094,141 @@ setInterval(async ()=>{
       await ch.send({type:"broadcast",event:"p",payload:{}});
       setTimeout(async ()=>{
         if(got) setRt(true, "LIVE "+new Date().toLocaleTimeString("ja-JP"));
-        else { setRt(false,"⚠ ROLLBACK"); if(me?.role==="founder") await sb.rpc("run_command",{p_cmd:"sys-roll",p_args:""}); }
+        else {
+          setRt(false,"接続断");
+          scheduleReconnect("connection-lost");
+        }
+        healthBusy = false;
         sb.removeChannel(ch);
       }, 1500);
     }
   });
 }, 180000);
 
+// Game rooms
+const gameLabel = g => ({oldmaid:"ババ抜き",werewolf:"人狼",othello:"オセロ"}[g]||"未選択");
+async function loadGame(){
+  const { data, error } = await sb.rpc("get_game_snapshot");
+  if(error || !data?.ok){ $("#gstatus").textContent="未接続"; return; }
+  gameSnapshot = data; currentRoom = data.myRoom || currentRoom || 1;
+  renderRooms(); await loadRoomMessages();
+}
+function renderRooms(){
+  const wrap=$("#rooms"); if(!gameSnapshot){ wrap.innerHTML=""; return; }
+  $("#gstatus").textContent = gameSnapshot.myRoom ? `ROOM ${gameSnapshot.myRoom}に参加中` : "未入室";
+  wrap.innerHTML = gameSnapshot.rooms.map(r=>{
+    const isHost = r.host_user_id===me.user_id, mine = r.room_id===currentRoom, playing = r.status==="playing";
+    const pls = (r.players||[]);
+    const players = pls.length
+      ? pls.map(p=>`<span class="pill${p.user_id===me.user_id?' me':''}${p.role==='spectator'?' sp':''}">${nameHtml(p.name,p.color)}${p.role==='spectator'?' 観戦':''}</span>`).join("")
+      : `<span class="pill empty">まだ誰もいません</span>`;
+    const choose = isHost && !playing ? `<div><div style="font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;font-weight:800">ゲームを選択</div><div class="gamepick"><button class="mini-btn${r.game_type==='oldmaid'?' primary':''}" data-game="oldmaid" data-room="${r.room_id}">🃏 ババ抜き</button><button class="mini-btn${r.game_type==='werewolf'?' primary':''}" data-game="werewolf" data-room="${r.room_id}">🐺 人狼</button><button class="mini-btn${r.game_type==='othello'?' primary':''}" data-game="othello" data-room="${r.room_id}">⚫ オセロ</button></div></div>` : "";
+    const state = renderGameState(r);
+    const inRoom = pls.some(p=>p.user_id===me.user_id);
+    const actions = `<div class="game-actions${isHost?' three':''}">
+      <button class="mini-btn primary" data-join="${r.room_id}">${inRoom?'切替: プレイ':'プレイで入る'}</button>
+      <button class="mini-btn ghost" data-watch="${r.room_id}">${inRoom?'切替: 観戦':'観戦で入る'}</button>
+      ${isHost?`<button class="mini-btn primary" data-start="${r.room_id}" ${playing?'disabled':''}>▶ 開始</button>`:''}
+    </div>${inRoom?`<button class="mini-btn danger" data-giveup="${r.room_id}" style="margin-top:4px">ギブアップ / 退室</button>`:''}`;
+    const status = playing?'<span class="stat live">● PLAYING</span>':(r.game_type?'<span class="stat lobby">○ LOBBY</span>':'<span class="stat">○ EMPTY</span>');
+    return `<section class="room${mine?' on':''}">
+      <div class="room-h">
+        <div class="room-num">${r.room_id}</div>
+        <div class="room-title"><span class="gname">${gameLabel(r.game_type)}</span><span class="gsub">Room ${r.room_id}</span></div>
+        <div class="room-meta"><span class="badge-cnt"><b>${r.count}</b>人 / プレイ <b>${r.playerCount}</b></span>${status}</div>
+      </div>
+      <div class="room-body">
+        <div class="players">${players}</div>
+        ${choose}
+        ${actions}
+        ${state}
+      </div>
+    </section>`;
+  }).join("");
+  wrap.querySelectorAll("[data-join]").forEach(b=>b.onclick=()=>joinRoom(+b.dataset.join,true));
+  wrap.querySelectorAll("[data-watch]").forEach(b=>b.onclick=()=>joinRoom(+b.dataset.watch,false));
+  wrap.querySelectorAll("[data-start]").forEach(b=>b.onclick=()=>rpcGame("start_game_room",{p_room_id:+b.dataset.start}));
+  wrap.querySelectorAll("[data-giveup]").forEach(b=>b.onclick=()=>rpcGame("leave_game_room",{p_room_id:+b.dataset.giveup}));
+  wrap.querySelectorAll("[data-game]").forEach(b=>b.onclick=()=>rpcGame("choose_game",{p_room_id:+b.dataset.room,p_game:b.dataset.game}));
+  wrap.querySelectorAll(".cell[data-r]").forEach(c=>c.onclick=()=>gameAct(currentRoom,"move",{r:+c.dataset.r,c:+c.dataset.c}));
+  wrap.querySelectorAll("[data-draw]").forEach(b=>b.onclick=()=>gameAct(+b.dataset.draw,"draw",{}));
+  wrap.querySelectorAll("[data-vote]").forEach(b=>b.onclick=()=>gameAct(currentRoom,"vote",{target:b.dataset.vote}));
+}
+function renderGameState(r){
+  if(r.room_id!==currentRoom) return `<div class="game-state">入室するとチャット・観戦・プレイできます。</div>`;
+  const st=r.public_state||{};
+  if(r.status!=="playing") return `<div class="game-state">${gameLabel(r.game_type)}を選んで開始できます。</div>`;
+  if(r.game_type==="othello"){
+    const board=(st.board||[]).map((row,ri)=>row.map((v,ci)=>`<button class="cell" data-r="${ri}" data-c="${ci}">${v?`<i class="disc ${v}"></i>`:""}</button>`).join("")).join("");
+    return `<div class="game-state">${st.color==='B'?'黒':'白'}の番<div class="board">${board}</div></div>`;
+  }
+  if(r.game_type==="oldmaid") return `<div class="game-state">手札: ${(gameSnapshot.myHand||[]).length}枚 / ${r.turn_user_id===me.user_id?'あなたの番':'待機中'}<div class="hand">${(gameSnapshot.myHand||[]).map(c=>`<span class="card">${esc(c)}</span>`).join("")}</div><div class="game-actions"><button class="mini-btn" data-draw="${r.room_id}">1枚引く</button></div></div>`;
+  const alive=new Set(st.alive||[]), targets=(r.players||[]).filter(p=>alive.has(p.user_id)).map(p=>`<button class="mini-btn" data-vote="${p.user_id}">${esc(p.name)}</button>`).join("");
+  return `<div class="game-state">${st.phase==='night'?'夜':'昼'} / あなた: ${gameSnapshot.myWerewolfRole==='werewolf'?'人狼':'村人'}<div class="game-actions">${targets}</div></div>`;
+}
+async function rpcGame(fn,args){ const {data,error}=await sb.rpc(fn,args); if(error||!data?.ok) flash(error?.message||data?.error||"失敗"); await loadGame(); }
+async function joinRoom(id,play){ currentRoom=id; await rpcGame("join_game_room",{p_room_id:id,p_play:play}); }
+async function gameAct(id,action,payload){ await rpcGame("game_action",{p_room_id:id,p_action:action,p_payload:payload}); }
+async function loadRoomMessages(){ const {data}=await sb.from("game_room_messages").select("*").eq("room_id",currentRoom).order("id",{ascending:true}).limit(80); $("#roommsgs").innerHTML=""; (data||[]).forEach(addRoomMsg); }
+function addRoomMsg(m){ const box=$("#roommsgs"); const d=document.createElement("div"); d.className="rmsg"; d.innerHTML=`<span class="rn">${nameHtml(m.name_snapshot,m.color_snapshot)}</span> ${esc(stripCtl(m.content))}`; box.appendChild(d); box.scrollTop=box.scrollHeight; }
+
 // Command palette
-function renderPal(prefix){
-  const items = COMMANDS.filter(x=>x.c.startsWith(prefix));
+function renderPalCmds(prefix){
+  const items = allowedCmds().filter(x=>x.c.startsWith(prefix));
   if(!items.length){ $("#pal").classList.remove("on"); return; }
-  $("#pal").innerHTML = `<div class="ph">コマンド  matches /${esc(prefix)}</div>` +
-    items.map((x,i)=>`<div class="it${i===0?" sel":""}" data-c="${esc(x.c)}"><div><span class="cmd">/${esc(x.c)}</span><span class="arg">${esc(x.a)}</span></div><span class="desc">${esc(x.d)}</span></div>`).join("");
+  $("#pal").innerHTML = `<div class="ph">あなたが使えるコマンド  /${esc(prefix)}</div>` +
+    items.map((x,i)=>`<div class="it${i===0?" sel":""}" data-c="${esc(x.c)}"><div><span class="cmd">/${esc(x.c)}</span><span class="arg">${esc(x.a)}</span></div><span class="desc">${esc(x.d)}${x.h?`<br>${esc(x.h)}`:""}</span></div>`).join("");
   $("#pal").classList.add("on");
   $("#pal").querySelectorAll(".it").forEach(el=>{
     el.onclick = ()=>{ $("#inp").value = "/"+el.dataset.c+" "; $("#pal").classList.remove("on"); $("#inp").focus(); };
   });
 }
+function renderPalNames(cmd, prefix){
+  const pre = (prefix||"").toLowerCase();
+  const list = [...presenceSet]
+    .map(id=>profilesMap.get(id))
+    .filter(u=>u && u.user_id!==me.user_id && u.name.toLowerCase().startsWith(pre))
+    .slice(0,8);
+  if(!list.length){ $("#pal").classList.remove("on"); return; }
+  $("#pal").innerHTML = `<div class="ph">/${esc(cmd)} の対象（オンライン）</div>` +
+    list.map((u,i)=>`<div class="it${i===0?" sel":""}" data-n="${esc(u.name)}"><div><span class="cmd">${nameHtml(u.name,u.name_color)}</span>${u.status?`<span class="arg">— ${esc(u.status)}</span>`:""}</div><span class="desc">${esc(u.role||"user")}</span></div>`).join("");
+  $("#pal").classList.add("on");
+  $("#pal").querySelectorAll(".it").forEach(el=>{
+    el.onclick = ()=>{
+      const v = $("#inp").value;
+      // replace the trailing token after the command with the chosen name + space
+      const m = v.match(/^(\/\S+\s+).*?$/);
+      $("#inp").value = (m?m[1]:("/"+cmd+" ")) + el.dataset.n + " ";
+      $("#pal").classList.remove("on"); $("#inp").focus();
+    };
+  });
+}
+function updatePal(v){
+  if(!v.startsWith("/")){ $("#pal").classList.remove("on"); return; }
+  const sp = v.indexOf(" ");
+  if(sp<0){ renderPalCmds(v.slice(1).toLowerCase()); return; }
+  const cmd = v.slice(1, sp).toLowerCase();
+  if(cmd==="color"){
+    $("#pal").innerHTML = `<div class="ph">/color 色を選択</div><div class="hint">カラーコード不要。色を押すだけで入力できます。</div><div class="swatches">${COLOR_PRESETS.map(c=>`<button class="sw" data-color="${c}" style="background:${c}"></button>`).join("")}</div>`;
+    $("#pal").classList.add("on");
+    $("#pal").querySelectorAll(".sw").forEach(b=>b.onclick=()=>{ $("#inp").value="/color "+b.dataset.color; $("#pal").classList.remove("on"); $("#inp").focus(); });
+    return;
+  }
+  const found = COMMANDS.find(x=>x.c===cmd);
+  if(found && !NAME_TARGET_CMDS.has(cmd)){
+    $("#pal").innerHTML = `<div class="ph">/${esc(cmd)} の入力</div><div class="hint"><code>${esc(found.h||('/'+cmd+' '+found.a))}</code><span>${esc(found.d)}</span></div>`;
+    $("#pal").classList.add("on"); return;
+  }
+  if(!NAME_TARGET_CMDS.has(cmd)){ $("#pal").classList.remove("on"); return; }
+  // only suggest while editing the first arg (name); stop after the name is followed by a space
+  const rest = v.slice(sp+1);
+  const sp2 = rest.indexOf(" ");
+  if(sp2 >= 0){ $("#pal").classList.remove("on"); return; }
+  renderPalNames(cmd, rest);
+}
 $("#inp").addEventListener("input", e=>{
   const v = e.target.value;
-  if(v.startsWith("/") && !/\s/.test(v)) renderPal(v.slice(1).toLowerCase());
-  else $("#pal").classList.remove("on");
+  updatePal(v);
   const trimmed = v.trim();
   if(trimmed && !v.startsWith("/")) sendTyping(trimmed);
   else stopTyping();
@@ -680,61 +1244,243 @@ document.getElementById("send").onclick = submit;
 $("#inp").addEventListener("keydown", e=>{ if(e.key==="Enter" && !e.shiftKey){ e.preventDefault(); submit(); }});
 
 async function submit(){
+  if(sending) return;
   let v = stripCtl($("#inp").value).trim();
   if(!v) return;
   if(v.length > 300){ flash("300字以上は送信不可"); return; }
   $("#inp").value=""; $("#pal").classList.remove("on"); stopTyping();
+  sending = true;
 
-  if(v.startsWith("/")){
+  try{ if(v.startsWith("/")){
     const sp = v.indexOf(" ");
     const cmd = (sp<0?v.slice(1):v.slice(1,sp)).toLowerCase();
     const args = sp<0?"":v.slice(sp+1);
-    if(cmd==="help"){
-      flash("コマンド: " + COMMANDS.map(x=>"/"+x.c).join(" "), "ok"); return;
+    if(cmd==="help"){ openHelp(); return; }
+    if(cmd==="admin"){ showAdminPanel(); return; }
+    if(cmd==="ng-list"){ await showListPanel("ng"); return; }
+    if(cmd==="list"){
+      if(myRank()<2){ flash("deleter以上のみ"); return; }
+      await showListPanel("status"); return;
+    }
+    if(cmd==="log"){
+      if(myRank()<2){ flash("deleter以上のみ"); return; }
+      await showListPanel("log"); return;
     }
     if(cmd==="color" && args && args!=="rainbow" && !HEX_RE.test(args.trim())){
       flash("色は #RRGGBB か rainbow"); return;
     }
-    const { data, error } = await sb.rpc("run_command", { p_cmd: cmd, p_args: args });
+    const { data, error } = await sb.rpc("run_command_logged", { p_cmd: cmd, p_args: args });
     if(error){ flash(error.message); return; }
     if(!data.ok) flash(data.error);
     else if(data.result) flash("🎴 "+data.result, "ok");
     if(cmd==="ignore"||cmd==="unignore") await loadIgnores();
-    if(cmd==="color"||cmd==="nick"){
-      const { data:d2 } = await sb.rpc("login_check");
-      if(d2?.ok){
-        me=d2.profile; renderMe();
-        // Presenceのトラッキング情報も更新
-        if(presCh) await presCh.track({
-          user_id:    me.user_id,
-          name:       me.name,
-          tag:        me.tag,
-          role:       me.role,
-          name_color: me.name_color,
-          nick_hidden:me.nick_hidden
-        });
-      }
+    if(cmd==="color"||cmd==="nick"||cmd==="status"){
+      const { data:d2 } = await sb.rpc("login_check"); if(d2?.ok){ me=d2.profile; renderMe(); }
+      await loadUsers();
     }
   } else {
-    const { data, error } = await sb.rpc("send_message", { p_content: v });
+    const replyId = replyToMsg ? replyToMsg.id : null;
+    const { data, error } = await sb.rpc("send_message", { p_content: v, p_reply_to: replyId });
     if(error){ flash(error.message); return; }
     if(!data.ok){
-      const map = {muted:"ミュート中です",banned:"BANされています",too_long:"300字以上は送信できません",too_fast:"3秒以内の連投は禁止",duplicate:"直前と同じ内容は送れません",zalgo:"zalgo文字は禁止",forbidden_link:"html.cafe リンクは禁止",empty:"空メッセージ",not_logged_in:"ログインしていません"};
+      const map = {muted:"ミュート中です",banned:"BANされています",too_long:"300字以上は送信できません",too_fast:"メッセージを送る感覚が早すぎます！",duplicate:"直前と同じ内容は送れません",zalgo:"zalgo文字は禁止",forbidden_link:"html.cafe リンクは禁止",empty:"空メッセージ",not_logged_in:"ログインしていません",ng_word:`🚫 NGワード「${data.word||""}」のため1分IPミュート`};
       flash(map[data.error]||data.error);
-    }
+    } else { clearReply(); }
+  }} finally { sending = false; }
+}
+function clearReply(){ replyToMsg=null; $("#reply-bar").classList.remove("on"); }
+$("#reply-cancel").onclick = clearReply;
+
+// ============ list panel ============
+async function showListPanel(kind){
+  const body = $("#lp-body"); const title = $("#lp-title");
+  body.innerHTML = `<div class="lp-empty">読み込み中…</div>`;
+  $("#listpanel").classList.add("on");
+  if(kind==="ng"){
+    title.textContent = "NGワード一覧";
+    const { data } = await sb.rpc("list_ng_words");
+    const arr = data || [];
+    body.innerHTML = arr.length === 0
+      ? `<div class="lp-empty">登録なし</div>`
+      : `<table><thead><tr><th>ワード</th><th>追加</th></tr></thead><tbody>${arr.map(w=>`<tr><td><code>${esc(w.word)}</code></td><td>${esc(new Date(w.created_at).toLocaleString("ja-JP"))}</td></tr>`).join("")}</tbody></table>`;
+  } else if(kind==="status"){
+    title.textContent = "現在のミュート / BAN 一覧";
+    const { data, error } = await sb.rpc("list_status");
+    if(error || data?.error){ body.innerHTML = `<div class="lp-empty">${esc(error?.message||data?.error||"取得失敗")}</div>`; return; }
+    const renderTbl = (rows, cols) => rows.length === 0
+      ? `<div class="lp-empty">なし</div>`
+      : `<table><thead><tr>${cols.map(c=>`<th>${esc(c.h)}</th>`).join("")}</tr></thead><tbody>${rows.map(r=>`<tr>${cols.map(c=>`<td>${c.f(r)}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+    body.innerHTML = `
+      <div class="lp-sect"><h3>🔇 ミュート (${data.mutes.length})</h3>${renderTbl(data.mutes, [
+        {h:"名前",f:r=>esc(r.name||"(不明)")},
+        {h:"権限",f:r=>esc(r.role||"-")},
+        {h:"種別",f:r=>r.ip_based?'<span class="pill-ng">IP</span>':"通常"},
+        {h:"解除予定",f:r=>esc(new Date(r.until).toLocaleString("ja-JP"))},
+      ])}</div>
+      <div class="lp-sect"><h3>🚫 BAN (${data.bans.length})</h3>${renderTbl(data.bans, [
+        {h:"名前",f:r=>esc(r.name||"(IP only)")},
+        {h:"理由",f:r=>esc(r.reason||"-")},
+        {h:"IP",f:r=>esc(r.ip||"-")},
+        {h:"日時",f:r=>esc(new Date(r.created_at).toLocaleString("ja-JP"))},
+      ])}</div>
+      <div class="lp-sect"><h3>🎮 部屋BAN (${data.room_bans.length})</h3>${renderTbl(data.room_bans, [
+        {h:"部屋",f:r=>"#"+r.room_id},
+        {h:"名前",f:r=>esc(r.name||"-")},
+        {h:"解除予定",f:r=>esc(new Date(r.until).toLocaleString("ja-JP"))},
+      ])}</div>`;
+  } else if(kind==="log"){
+    title.textContent = "コマンド実行履歴 (直近3日)";
+    const { data, error } = await sb.rpc("list_command_log", { p_limit: 200 });
+    if(error || data?.error){ body.innerHTML = `<div class="lp-empty">${esc(error?.message||data?.error||"取得失敗")}</div>`; return; }
+    const arr = data || [];
+    body.innerHTML = arr.length === 0
+      ? `<div class="lp-empty">履歴なし</div>`
+      : `<table><thead><tr><th>日時</th><th>名前</th><th>権限</th><th>コマンド</th><th>引数</th><th>結果</th></tr></thead><tbody>${
+        arr.map(r=>`<tr><td>${esc(new Date(r.at).toLocaleString("ja-JP"))}</td><td>${esc(r.name)}</td><td>${esc(r.role)}</td><td><code>/${esc(r.cmd)}</code></td><td>${esc((r.args||"").slice(0,40))}</td><td class="${r.ok?'pill-ok':'pill-ng'}">${r.ok?"OK":"NG"}</td></tr>`).join("")
+      }</tbody></table>`;
   }
 }
+$("#lp-close").onclick = ()=>$("#listpanel").classList.remove("on");
+$("#listpanel").onclick = e=>{ if(e.target.id==="listpanel") $("#listpanel").classList.remove("on"); };
+
+function showAdminPanel(){
+  $("#lp-title").textContent = "権限を持つメンバー";
+  const all = [...profilesMap.values()];
+  const groups = [
+    {key:"founder",  label:"👑 創設者", rows: all.filter(u=>u.role==="founder")},
+    {key:"admin",    label:"🛡 管理者",  rows: all.filter(u=>u.role==="admin")},
+    {key:"deleter",  label:"🧹 DELETER", rows: all.filter(u=>u.role==="deleter")},
+  ];
+  const renderRows = (rows) => rows.length===0
+    ? `<div class="lp-empty">なし</div>`
+    : `<table><thead><tr><th>名前</th><th>状態</th><th>オンライン</th></tr></thead><tbody>${rows.map(u=>`<tr><td>${nameHtml(u.name,u.name_color)} ${u.nick_hidden?'<span class="tag">(匿名)</span>':''}</td><td>${esc(u.status||"-")}</td><td class="${presenceSet.has(u.user_id)?'pill-ok':'pill-ng'}">${presenceSet.has(u.user_id)?"● ONLINE":"○ offline"}</td></tr>`).join("")}</tbody></table>`;
+  $("#lp-body").innerHTML = groups.map(g=>`<div class="lp-sect"><h3>${g.label} (${g.rows.length})</h3>${renderRows(g.rows)}</div>`).join("");
+  $("#listpanel").classList.add("on");
+}
+
+
+// ============ view tabs (main / game) ============
+let currentView = "main";
+function setView(v){
+  currentView = v;
+  $("#tab-main").classList.toggle("on", v==="main");
+  $("#tab-game").classList.toggle("on", v==="game");
+  $("#chatpane").classList.toggle("hidden-main", v==="game");
+}
+$("#tab-main").onclick = ()=>setView("main");
+$("#tab-game").onclick = ()=>setView("game");
+
+// ============ game view rendering ============
+function renderGameView(){
+  const board = $("#gv-board");
+  const r = gameSnapshot?.rooms?.find(x=>x.room_id===currentRoom);
+  $("#gv-rtitle").textContent = `部屋#${currentRoom} ROOM CHAT`;
+  const gv = $("#gameview");
+  if(!r){ board.innerHTML = `<div class="gv-empty">部屋に入ってゲームを始めましょう →</div>`; gv.classList.remove("playing"); return; }
+  const gname = ({oldmaid:"🃏 ババ抜き",werewolf:"🐺 人狼",othello:"⚫ オセロ"})[r.game_type] || "未選択";
+  const tabState = $("#gtab-state");
+  if(r.status==="playing"){ tabState.style.display=""; tabState.textContent="LIVE"; gv.classList.add("playing"); }
+  else { tabState.style.display="none"; gv.classList.remove("playing"); }
+  const meRow = (gameSnapshot.members||[]).find(m=>m.user_id===me.user_id && m.room_id===currentRoom);
+  const isPlayer = meRow?.role === "player";
+  const head = `<h2>${gname} — 部屋#${r.room_id}</h2><div class="gv-sub">状態: ${r.status==="playing"?"プレイ中":r.status==="lobby"?"ロビー":"終了"} / あなた: ${meRow?(isPlayer?"プレイヤー":"観戦"):"未参加"}</div>`;
+  let body = "";
+  if(r.status!=="playing"){
+    body = `<div class="gv-empty">${r.game_type?"開始待ち…":"ホストがゲームを選択してください"}</div>`;
+    if(meRow && r.host_user_id===me.user_id && r.game_type){
+      body += `<div class="gv-actions"><button class="mini-btn primary" onclick="startCurGame()">▶ 開始</button></div>`;
+    }
+  } else if(r.game_type==="othello"){
+    const st = r.public_state||{};
+    const board8 = (st.board||[]).map((row,ri)=>row.map((v,ci)=>`<button class="cell" data-r="${ri}" data-c="${ci}">${v?`<i class="disc ${v}"></i>`:""}</button>`).join("")).join("");
+    body = `<div class="board-big">${board8}</div><div class="gv-sub" style="text-align:center;margin-top:14px">${st.color==='B'?'⚫ 黒':'⚪ 白'} の番 / 自分: ${st.black===me.user_id?'⚫黒':st.white===me.user_id?'⚪白':'観戦'}</div><div class="gv-actions">${isPlayer?'<button class="mini-btn danger" onclick="giveupCur()">🏳 ギブアップ</button>':""}</div>`;
+  } else if(r.game_type==="oldmaid"){
+    const hand = gameSnapshot.myHand||[];
+    body = `<div class="hand-big">${hand.length?hand.map(c=>`<div class="card">${esc(c)}</div>`).join(""):'<div class="gv-empty">手札なし</div>'}</div><div class="gv-sub" style="text-align:center;margin-top:14px">${r.turn_user_id===me.user_id?'🎯 あなたの番':'待機中…'}</div><div class="gv-actions">${isPlayer && r.turn_user_id===me.user_id ? `<button class="mini-btn primary" onclick="actionCur('draw')">🃏 1枚引く</button>`:""}${isPlayer?'<button class="mini-btn danger" onclick="giveupCur()">🏳 ギブアップ</button>':""}</div>`;
+  } else if(r.game_type==="werewolf"){
+    const st = r.public_state||{};
+    const role = gameSnapshot.myWerewolfRole;
+    const alive = st.alive||[];
+    const isAlive = alive.includes(me.user_id);
+    body = `<div class="ww-roles"><div class="ww-role">${st.phase==='night'?'🌙 夜':'☀ 昼'} / Day ${st.day||1}</div>${role?`<div class="ww-role">あなた: ${role==='werewolf'?'🐺 人狼':'👤 村人'} ${isAlive?'':'💀'}</div>`:''}<div class="gv-sub">${esc(st.note||'')}</div></div>`;
+    if(isPlayer && isAlive){
+      const canVote = st.phase==='night' ? role==='werewolf' : true;
+      const targets = alive.filter(u=>u!==me.user_id);
+      body += `<div class="gv-actions">${canVote?targets.map(uid=>{const p=profilesMap.get(uid);return `<button class="mini-btn" onclick="actionCur('vote',{target:'${uid}'})">${esc(p?.name||uid.slice(0,6))} に投票</button>`;}).join(""):'<div class="gv-empty">あなたの操作待ちなし</div>'}<button class="mini-btn danger" onclick="giveupCur()">🏳 ギブアップ</button></div>`;
+    }
+  }
+  board.innerHTML = head + body;
+  // Wire othello cell clicks
+  board.querySelectorAll(".board-big .cell").forEach(c=>{
+    c.onclick = ()=>actionCur("move",{r:+c.dataset.r,c:+c.dataset.c});
+  });
+}
+window.actionCur = async (act, payload={})=>{ const {data,error}=await sb.rpc("game_action",{p_room_id:currentRoom,p_action:act,p_payload:payload}); if(error||!data?.ok) flash(error?.message||data?.error||"失敗"); };
+window.giveupCur = async ()=>{ if(!confirm("ギブアップしますか？")) return; await window.actionCur("giveup"); };
+window.startCurGame = async ()=>{ const {data,error}=await sb.rpc("start_game_room",{p_room_id:currentRoom}); if(error||!data?.ok) flash(error?.message||data?.error||"開始失敗"); };
+
+// Hook game view render whenever game data refreshes
+const _origLoadGame = window._origLoadGame || null;
+// We'll patch loadGame after definition — see below patch
+
+// ============ game room chat (in game view) ============
+function addGvRoomMsg(m){ const box=$("#gv-rmsgs"); const d=document.createElement("div"); d.className="rmsg"; d.innerHTML=`<span class="rn">${nameHtml(m.name_snapshot,m.color_snapshot)}</span> ${esc(stripCtl(m.content))}`; box.appendChild(d); box.scrollTop=box.scrollHeight; }
+async function gvSendRoom(){
+  const v=stripCtl($("#gv-rinp").value).trim(); if(!v) return;
+  $("#gv-rinp").value="";
+  const {data,error}=await sb.rpc("send_game_chat",{p_room_id:currentRoom,p_content:v});
+  if(error||!data?.ok) flash(error?.message||data?.error||"部屋チャット送信失敗");
+}
+$("#gv-rsend").onclick = gvSendRoom;
+$("#gv-rinp").addEventListener("keydown",e=>{ if(e.key==="Enter"){ e.preventDefault(); gvSendRoom(); }});
+
+async function sendRoomChat(){
+  const v=stripCtl($("#rinp").value).trim(); if(!v) return;
+  $("#rinp").value="";
+  const {data,error}=await sb.rpc("send_game_chat",{p_room_id:currentRoom,p_content:v});
+  if(error||!data?.ok) flash(error?.message||data?.error||"部屋チャット送信失敗");
+}
+$("#rsend").onclick=sendRoomChat;
+$("#rinp").addEventListener("keydown",e=>{ if(e.key==="Enter"){ e.preventDefault(); sendRoomChat(); }});
 
 $("#togUsers").onclick = ()=>{ const p=$("#userpane"); p.style.display = p.style.display==="none"?"":"none"; };
+$("#logoutBig").onclick = doLogout;
 
-// 【変更】サインアウト時のみリロード、TOKEN_REFRESHED時は再接続
-sb.auth.onAuthStateChange((event)=>{
-  if(event==="SIGNED_OUT"){
-    location.reload();
-  } else if(event==="TOKEN_REFRESHED"){
-    // トークン更新後、チャンネルを再接続（リロード不要）
-    if(me) subscribe();
-  }
+// Help modal
+function openHelp(){
+  const list = $("#hm-list");
+  const cmds = allowedCmds();
+  list.innerHTML = `<div style="padding:10px 22px;color:var(--muted);font-size:11px;letter-spacing:1.5px">あなた (${esc(me?.role||'user')}) が使えるコマンド: ${cmds.length}個</div>` +
+    cmds.map(x=>`
+    <div class="hm-row" data-c="${esc(x.c)}">
+      <div><div class="hm-cmd">/${esc(x.c)}</div>${x.a?`<span class="hm-arg">${esc(x.a)}</span>`:""}</div>
+      <div class="hm-desc">${esc(x.d)}</div>
+    </div>`).join("");
+  list.querySelectorAll(".hm-row").forEach(el=>{
+    el.onclick = ()=>{ $("#inp").value = "/"+el.dataset.c+(el.dataset.c==="help"?"":" "); $("#helpModal").classList.remove("on"); $("#inp").focus(); };
+  });
+  $("#helpModal").classList.add("on");
+}
+$("#togHelp").onclick = openHelp;
+$("#hm-close").onclick = ()=>$("#helpModal").classList.remove("on");
+$("#helpModal").onclick = e=>{ if(e.target.id==="helpModal") $("#helpModal").classList.remove("on"); };
+document.addEventListener("keydown", e=>{ if(e.key==="Escape"){ $("#helpModal").classList.remove("on"); $("#listpanel").classList.remove("on"); }});
+
+// Patch loadGame so it also re-renders the big game view + auto-loads room messages into gv
+const _loadGameOrig = loadGame;
+loadGame = async function(){
+  await _loadGameOrig();
+  renderGameView();
+  // mirror room messages into gv pane
+  const {data}=await sb.from("game_room_messages").select("*").eq("room_id",currentRoom).order("id",{ascending:true}).limit(80);
+  $("#gv-rmsgs").innerHTML=""; (data||[]).forEach(addGvRoomMsg);
+};
+// Also mirror INSERTs from realtime
+const _addRoomOrig = addRoomMsg;
+addRoomMsg = function(m){ _addRoomOrig(m); addGvRoomMsg(m); };
+
+sb.auth.onAuthStateChange((e)=>{
+  if(e==="SIGNED_OUT" && me){ doLogout(); }
 });
 
 boot();
