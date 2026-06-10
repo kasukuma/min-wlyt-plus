@@ -1511,6 +1511,9 @@ app.get("/vc", (req, res) => {
 app.get("/code", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "app/Code.html"));
 });
+app.get("/croxy", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "proxy/croxy.html"));
+});
 app.get("/games.json", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "game/game.json"));
 });
