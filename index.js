@@ -85,11 +85,11 @@ app.use(async (req, res, next) => {
         'https://raw.githubusercontent.com/mino-hobby-pro/memo/refs/heads/main/history.html.txt',
         'https://raw.githubusercontent.com/mino-hobby-pro/memo/refs/heads/main/gisou/chapcha.html',
         'https://raw.githubusercontent.com/mino-hobby-pro/memo/refs/heads/main/gisou/easy.html',
-        'https://raw.githubusercontent.com/mino-hobby-pro/MIN-Tube-Pro/refs/heads/main/gizo/Login.html',
-        'https://github.com/mino-hobby-pro/MIN-Tube-Pro/raw/refs/heads/main/gizo/TU.html',
-        'https://github.com/mino-hobby-pro/MIN-Tube-Pro/raw/refs/heads/main/gizo/classroom.html',
-        'https://github.com/mino-hobby-pro/MIN-Tube-Pro/raw/refs/heads/main/gizo/kensaku.html',
-        'https://github.com/mino-hobby-pro/MIN-Tube-Pro/raw/refs/heads/main/gizo/wikipedia.html'
+        'https://raw.githubusercontent.com/woolisbest-honke/min-wlyt-plus/refs/heads/main/gizo/Login.html',
+        'https://github.com/woolisbest-honke/min-wlyt-plus/raw/refs/heads/main/gizo/TU.html',
+        'https://github.com/woolisbest-honke/min-wlyt-plus/raw/refs/heads/main/gizo/classroom.html',
+        'https://github.com/woolisbest-honke/min-wlyt-plus/raw/refs/heads/main/gizo/kensaku.html',
+        'https://github.com/woolisbest-honke/min-wlyt-plus/raw/refs/heads/main/gizo/wikipedia.html'
       ];
       const randomPage = pages[Math.floor(Math.random() * pages.length)];
       try {
@@ -1629,7 +1629,7 @@ app.get("/channel/:channelName", (req, res) => {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${channelName} - MIN-Tube-Pro</title>
+  <title>${channelName} - Min-WLYT-Plus</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <style>
@@ -2234,7 +2234,7 @@ const calculateScore = (v) => {
 };
 
 app.get('/check-version', async (req, res) => {
-    const remoteUrl = 'https://raw.githubusercontent.com/mino-hobby-pro/MIN-Tube-Pro/refs/heads/main/public/raw/version.json';
+    const remoteUrl = 'https://raw.githubusercontent.com/woolisbest-honke/min-wlyt-plus/refs/heads/main/public/raw/version.json';
     const localPath = path.join(__dirname, 'public', 'raw', 'version.json');
 
     try {
