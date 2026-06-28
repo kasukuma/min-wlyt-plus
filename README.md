@@ -1,4 +1,4 @@
-# MIN-Tube-Pro
+# Min-WLYT-Plus
 
 CG / YouTube web app.  
 「MIN-Tube-Pro」は、YouTube や動画視聴をより快適にするための Web アプリです。  
@@ -215,12 +215,12 @@ https://github.com/mino-hobby-pro/UV-Static_Netlify
 ---
 ## 開発メンバー
 
-・<a href="https://github.com/mino-hobby-pro">mino-hobby-pro</a>  
-・<a href="https://github.com/myproxy0108-prog">myproxy0108-prog</a>  
+・<a href="https://github.com/woolisbest-honke">woolisbest</a>  
+・<a href="https://github.com/mino-hobby-pro">mino</a>  
+・<a href="https://github.com/myproxy0108-prog">ねむい</a>  
 ・<a href="https://github.com//raku-ringo">raku-ringo</a>  
 ・<a href="https://github.com/Sou930">Sou930</a>  
 ・<a href="https://github.com/KA1121Studio">KA1121Studio</a>  
-・<a href="https://github.com/woolisbest">woolisbest</a>  
 ・<a href="https://github.com/kiki riki">kiki riki</a>  
 
 ---
@@ -229,9 +229,9 @@ https://github.com/mino-hobby-pro/UV-Static_Netlify
 
 以下の開発者・プロジェクトに感謝します。
 
+- mino-hobby-pro
 - dinguschan-owo
 - jacksoncraft859
-- woolisbest
 - siawaseok
 - その他、本プロジェクトを支えてくださったすべての方々
 
@@ -239,9 +239,9 @@ https://github.com/mino-hobby-pro/UV-Static_Netlify
 
 <div align="center">
 
-### MIN-Tube-Pro™
+### Min-WLYT-Plus™
 
-© 2026 <a href="https://github.com/mino-hobby-pro">mino-hobby-pro</a>  
+© 2026 <a href="https://github.com/woolisbest-honke">woolisbest</a>
 All rights reserved.
 
 </div>
