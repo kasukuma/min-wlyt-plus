@@ -35,6 +35,11 @@ jobs:
           mkdir -p assist/gisou-min2
           cp -r gisou_repo/* assist/gisou-min2/
 
+      - name: Remove temp repos
+        run: |
+          rm -rf memo_repo
+          rm -rf gisou_repo
+
       - name: Commit and push changes
         run: |
           git config user.name "github-actions[bot]"
