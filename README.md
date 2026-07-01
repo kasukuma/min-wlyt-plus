@@ -54,7 +54,16 @@ node index.js
 
 ---
 
-## 更新履歴
+## 更新履歴(min-wlyt-plus)
+### ver1.0.3
+- Elixir-networkでの漫画、映画が確実に使えるように調整
+- WOOLsite追加
+- educationパラメーターの修正
+- LICENSEを更新
+- package.jsonなどでの名称をmin-wlyt-plusに更新。
+- 偽造ページなどのURLをこのリポジトリ内に移動することで、別のリポジトリへの依存をできるだけ減らす。
+
+## 更新履歴(min-tube-pro)
 ### ver1.4.9
 - Elixir-networkを利用した映画を修正、アプリを使えるように改良
 ### ver1.4.8
