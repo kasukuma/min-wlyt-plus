@@ -1,7 +1,7 @@
 # Min-WLYT-Plus
 
 CG / YouTube web app.  
-「MIN-Tube-Pro」は、YouTube や動画視聴をより快適にするための Web アプリです。  
+「Min-wlyt-Plus」は、YouTube や動画視聴をより快適にするための Web アプリです。  
 ブラウザからすぐにアクセスでき、PC・スマホ問わず軽量に動作することを目指しています。
 
 ---
