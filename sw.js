@@ -1,5 +1,5 @@
 // MIN-Tube-Pro Service Worker
-const CACHE_NAME = 'min-tube-pro-v1';
+const CACHE_NAME = 'min-wlyt-plus';
 const PRECACHE = [
   '/public/min-tube-pro.html',
   '/img/min-tube-pro.png',
