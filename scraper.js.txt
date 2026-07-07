@@ -620,7 +620,7 @@ function parsePlayerResponse(pr) {
 
   const channelId = vd.channelId || mf.externalChannelId || null;
 
-  // ライブ判定
+  // ライブ判定(。´・ω・)ん?
   const isLive = !!(vd.isLiveContent && vd.isLive);
 
 
