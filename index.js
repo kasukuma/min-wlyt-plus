@@ -1532,7 +1532,7 @@ app.get("/own", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "proxy/own.html"));
 });
 
-app.get("/wool", (req, res) => {
+app.get("/wista", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "wista.html"));
 });
 
@@ -1578,7 +1578,7 @@ app.get("/sw.js", (req, res) => {
 });
 
 app.get("/wool", (req, res) => {
-  res.sendFile(path.join(__dirname, ("public", "wista.html"));
+  res.sendFile(path.join(__dirname, "public", "wista.html"));
 });
 
 app.get("/api/channel", async (req, res) => {
